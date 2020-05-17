@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ruleBoxController">
+   <bottom>
+      <Button fx:id="accept" mnemonicParsing="false" onAction="#acceptHandler" text="Accept" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="50.0" left="20.0" right="20.0" top="20.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
+   <center>
+      <TextArea prefHeight="305.0" prefWidth="57.0" text="You got 5 card in your card deck.At the start of the turn you will get 1 card from the deck.At the same time you can have only 2 cards in your hand.You can have maximum 2 cards on the table, if one of your monsters dead, and you got only 1 left there , than you can play another card from the hand if you got. You can attack maximum 2 times in a round(depends on how many card you have got on the table. You start the game with 10 hp. You can end your turn by press the end button.&#10;&#10;The game will ends when someone loose all theri vitality. &#10;There is a little chance for draw." wrapText="true" BorderPane.alignment="CENTER">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </padding>
+      </TextArea>
+   </center>
+   <top>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Project--Card Rules" underline="true" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Yu Gothic Medium" size="36.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </BorderPane.margin>
+      </Text>
+   </top>
+</BorderPane>

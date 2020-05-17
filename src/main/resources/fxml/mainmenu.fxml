@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane id="proba" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@mainmenu.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.mainMenuController">
+   <top>
+      <Text layoutY="40.0" lineSpacing="5.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Project--Card" translateY="15.0" underline="true" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Yu Gothic Medium" size="36.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </BorderPane.margin>
+      </Text>
+   </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField prefHeight="25.0" prefWidth="255.0">
+               <VBox.margin>
+                  <Insets bottom="20.0" left="10.0" right="20.0" top="20.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="10.0" right="20.0" />
+               </VBox.margin>
+            </TextField>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="100.0" left="10.0" right="100.0" top="100.0" />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Player one:">
+               <VBox.margin>
+                  <Insets left="160.0" top="102.0" />
+               </VBox.margin>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Player two:">
+               <VBox.margin>
+                  <Insets left="160.0" right="10.0" top="29.0" />
+               </VBox.margin>
+            </Text>
+         </children>
+      </VBox>
+   </left>
+   <bottom>
+      <BorderPane prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <center>
+            <Button fx:id="start" mnemonicParsing="false" onAction="#startHandler" text="Start" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="10.0" left="20.0" right="35.0" top="20.0" />
+               </BorderPane.margin>
+            </Button>
+         </center>
+         <right>
+            <Button fx:id="exit" mnemonicParsing="false" onAction="#exitHandler" scaleX="1.3" text="Exit" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+               </BorderPane.margin>
+            </Button>
+         </right>
+         <left>
+            <Button fx:id="rules" mnemonicParsing="false" onAction="#ruleHandler" text="Rules" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+               </BorderPane.margin>
+            </Button>
+         </left>
+      </BorderPane>
+   </bottom>
+</BorderPane>
