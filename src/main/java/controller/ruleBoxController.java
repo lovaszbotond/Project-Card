@@ -15,7 +15,6 @@ public class ruleBoxController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/mainmenu.fxml"));
         Parent root = fxmlLoader.load();
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setTitle("Szabályok");
         stage.setScene(new Scene(root));
         stage.show();
     }

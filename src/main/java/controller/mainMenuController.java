@@ -38,8 +38,13 @@ public class mainMenuController {
         stage.show();
     }
 
-    public void exitHandler(ActionEvent actionEvent) {
+
+    public void exitHandler(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/exitquestion.fxml"));
+        Parent root = fxmlLoader.load();
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.close();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Exit");
+        stage.show();
     }
 }
