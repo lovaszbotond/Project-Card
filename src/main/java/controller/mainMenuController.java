@@ -30,7 +30,7 @@ public class mainMenuController {
     private static Label p2Error;
 
     private Stage stage;
-
+    @FXML
     public void ruleHandler(javafx.event.ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/rulebox.fxml"));
         Parent root = fxmlLoader.load();
@@ -39,32 +39,30 @@ public class mainMenuController {
         stage.setTitle("Rules");
         stage.show();
     }
-
+    @FXML
     public void startHandler(ActionEvent actionEvent) throws IOException {
-        if (p1Field.getText().isEmpty()) {
-            p1Error.setText("Please add name to Player one");
-        } else {
+        if (p1Field.getText().isEmpty()) p1Error.setText("Please add name to Player one");
+        else {
             p1Error.setText("");
         }
-        if (p2Field.getText().isEmpty()) {
-            p2Error.setText("Please add name to Player two");
-        } else {
+        if (p2Field.getText().isEmpty()) p2Error.setText("Please add name to Player two");
+        else {
             p2Error.setText("");
         }
-        if (!p1Field.getText().isEmpty() && !p2Field.getText().isEmpty()) {
+        if (!p1Field.getText().isEmpty() && !p2Field.getText().isEmpty())
+        {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/gameplaytable.fxml"));
             Parent root = fxmlLoader.load();
+            fxmlLoader.<gamePlayTableController>getController().fieldNames(p1Field.getText(), p2Field.getText());
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         }
     }
-
-
+    @FXML
     public void exitHandler(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/exitquestion.fxml"));
         Parent root = fxmlLoader.load();
-        fxmlLoader.<GameController>getController().initPlayerNames(player1Textfield.getText(), player2Textfield.getText());
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.setTitle("Exit");

@@ -12,8 +12,6 @@ import java.io.IOException;
 public class exitBoxController {
 
 
-
-
     public void yesexitHandler(ActionEvent actionEvent) {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();
