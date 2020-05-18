@@ -57,6 +57,9 @@ public class MainMenuController {
             fxmlLoader.<GamePlayTableController>getController().fieldNames(p1Field.getText(), p2Field.getText());
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
+            stage.setTitle("Project--card");
+            stage.setResizable(true);
+            stage.setMaximized(true);
             stage.show();
         }
     }

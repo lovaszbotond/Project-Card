@@ -22,6 +22,7 @@ public class ExitBoxController {
         Parent root = fxmlLoader.load();
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
+        stage.setTitle("Project--card");
         stage.show();
     }
 }
