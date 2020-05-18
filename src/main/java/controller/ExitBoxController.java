@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class exitBoxController {
+public class ExitBoxController {
 
 
     public void yesexitHandler(ActionEvent actionEvent) {

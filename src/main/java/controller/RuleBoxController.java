@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ruleBoxController {
+public class RuleBoxController {
 
     public void acceptHandler(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/mainmenu.fxml"));

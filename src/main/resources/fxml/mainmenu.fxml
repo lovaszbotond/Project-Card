@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane id="proba" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@mainmenu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.mainMenuController">
+<BorderPane id="proba" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@mainmenu.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenuController">
    <top>
       <Text layoutY="40.0" lineSpacing="5.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Project--Card" translateY="15.0" underline="true" BorderPane.alignment="CENTER">
          <font>
