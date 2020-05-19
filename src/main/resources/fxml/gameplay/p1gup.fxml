@@ -5,12 +5,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PlayerOneGiveUpBoxController">
+<BorderPane id="p1gup" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="400.0" stylesheets="@p1gup.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PlayerOneGiveUpBoxController">
    <center>
-      <Button fx:id="accept" mnemonicParsing="false" onAction="#acceptHandler" text="Accept" BorderPane.alignment="CENTER" />
+      <Button id="accept" fx:id="accept" mnemonicParsing="false" onAction="#acceptHandler" stylesheets="@p1gup.css" text="Accept" BorderPane.alignment="CENTER" />
    </center>
    <top>
-      <Label fx:id="p1guptext" ellipsisString="" prefHeight="17.0" prefWidth="312.0" textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER">
+      <Label fx:id="p1guptext" ellipsisString="" prefHeight="17.0" prefWidth="312.0" textAlignment="CENTER" textFill="WHITE" wrapText="true" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets top="20.0" />
          </BorderPane.margin>

@@ -1,0 +1,14 @@
+#p2gup
+{
+    -fx-background-image: url("../../images/giveup.jpg");
+}
+#accept:hover
+{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+#accept:pressed
+{
+    -fx-background-color:black;
+    -fx-text-fill:red;
+}
