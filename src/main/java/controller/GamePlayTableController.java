@@ -27,11 +27,5 @@ public class GamePlayTableController {
     }
 
 
-
-
-    @FXML
-    private void switchToPrimary() throws IOException {
-    }
-
 }
 

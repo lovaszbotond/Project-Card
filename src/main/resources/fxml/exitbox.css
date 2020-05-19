@@ -1,0 +1,24 @@
+#exitbox
+{
+    -fx-background-image: url("../images/exitbox.jpg");
+}
+#yes:hover
+{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+#yes:pressed
+{
+    -fx-background-color: black;
+    -fx-text-fill:red;
+}
+#no:hover
+{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+#no:pressed
+{
+    -fx-background-color: black;
+    -fx-text-fill:red;
+}

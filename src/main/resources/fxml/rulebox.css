@@ -1,0 +1,18 @@
+#rulebox
+{
+    -fx-background-image: url("../images/rulebox.jpg");
+}
+#accept:hover
+{
+    -fx-background-color: darkblue;
+    -fx-text-fill: white;
+}
+#accept:pressed
+{
+    -fx-background-color: blue;
+    -fx-text-fill:black;
+}
+#ruletext
+{
+    -fx-background-color: Background;
+}

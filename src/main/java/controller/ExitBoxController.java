@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.tinylog.Logger;
 
 import java.io.IOException;
 
@@ -15,6 +16,7 @@ public class ExitBoxController {
     public void yesexitHandler(ActionEvent actionEvent) {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();
+        Logger.info("Thank you for the game , i hope you liked it and come back as soon as you can :).");
     }
 
     public void noexithandler(ActionEvent actionEvent) throws IOException {
@@ -24,5 +26,6 @@ public class ExitBoxController {
         stage.setScene(new Scene(root));
         stage.setTitle("Project--card");
         stage.show();
+        Logger.info("Thank you for not leaving the game, start a new one ;).");
     }
 }

@@ -11,6 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.tinylog.Logger;
+
 
 public class MainMenuController {
 
@@ -33,22 +35,27 @@ public class MainMenuController {
         stage.setScene(new Scene(root));
         stage.setTitle("Rules");
         stage.show();
+        Logger.info("The user check the rules.");
     }
     @FXML
     public void startHandler(ActionEvent actionEvent) throws IOException {
         if (p1Field.getText().isEmpty())
         {
             p1Error.setText("Please add name to Player one");
+            Logger.error("Can not find the player one name in the field.");
         }
         else {
             p1Error.setText("");
+            Logger.info("Player one set the name to {}.",p1Field.getText());
         }
         if (p2Field.getText().isEmpty())
         {
             p2Error.setText("Please add name to Player two");
+            Logger.error("Can not find the player two name in the field.");
         }
         else {
             p2Error.setText("");
+            Logger.info("Player two set the name to {}.",p2Field.getText());
         }
         if (!p1Field.getText().isEmpty() && !p2Field.getText().isEmpty())
         {
@@ -58,9 +65,10 @@ public class MainMenuController {
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Project--card");
-            stage.setResizable(true);
+            stage.setResizable(false);
             stage.setMaximized(true);
             stage.show();
+            Logger.info("Everything looks good , let start the duel and have fun!");
         }
     }
     @FXML

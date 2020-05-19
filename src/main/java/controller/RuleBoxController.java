@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.tinylog.Logger;
 
 import java.io.IOException;
 
@@ -18,5 +19,6 @@ public class RuleBoxController {
         stage.setScene(new Scene(root));
         stage.setTitle("Project--card");
         stage.show();
+        Logger.info("If you do not understand something , just send me a message on email : botond.lovasz@gmail.com");
     }
 }

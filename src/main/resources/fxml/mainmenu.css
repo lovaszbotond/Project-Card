@@ -1,4 +1,72 @@
-#proba
+#mainmenu
 {
-    -fx-background-color: blueviolet;
+    -fx-background-image: url("../images/mainmenu.jpg");
+}
+#p1error
+{
+    -fx-text-fill: whitesmoke;
+}
+#p2error
+{
+    -fx-text-fill: whitesmoke;
+}
+#start:hover
+{
+    -fx-background-color: darkred;
+    -fx-text-fill: white;
+}
+#start:pressed
+{
+    -fx-background-color: red;
+    -fx-text-fill:black;
+}
+#rules:hover
+{
+    -fx-background-color: darkred;
+    -fx-text-fill: white;
+}
+#rules:pressed
+{
+    -fx-background-color: red;
+    -fx-text-fill:black;
+}
+#exit:hover
+{
+    -fx-background-color: darkred;
+    -fx-text-fill: white;
+}
+#exit:pressed
+{
+    -fx-background-color: red;
+    -fx-text-fill:black;
+}
+#p1
+{
+    -fx-text-fill: whitesmoke;
+}
+#p2
+{
+    -fx-text-fill: whitesmoke;
+}
+#p1field
+{
+    -fx-background-color: transparent;
+    -fx-text-inner-color: white;
+    -fx-font-weight: bold;
+    -fx-font-size: large;
+}
+#p1field:hover
+{
+    -fx-background-color: darkred;
+}
+#p2field
+{
+    -fx-background-color: transparent;
+    -fx-text-inner-color: white;
+    -fx-font-weight: bold;
+    -fx-font-size: large;
+}
+#p2field:hover
+{
+    -fx-background-color: darkred;
 }

@@ -6,20 +6,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ExitBoxController">
+<BorderPane id="exitbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="200.0" stylesheets="@exitbox.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ExitBoxController">
    <bottom>
       <VBox prefHeight="47.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <left>
-                  <Button fx:id="yesexit" mnemonicParsing="false" onAction="#yesexitHandler" text="Yes" BorderPane.alignment="CENTER">
+                  <Button id="yes" fx:id="yesexit" mnemonicParsing="false" onAction="#yesexitHandler" stylesheets="@exitbox.css" text="Yes" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets left="50.0" />
                      </BorderPane.margin>
                   </Button>
                </left>
                <right>
-                  <Button fx:id="noexit" mnemonicParsing="false" onAction="#noexithandler" text="No" BorderPane.alignment="CENTER">
+                  <Button id="no" fx:id="noexit" mnemonicParsing="false" onAction="#noexithandler" stylesheets="@exitbox.css" text="No" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets right="50.0" />
                      </BorderPane.margin>
@@ -30,6 +30,6 @@
       </VBox>
    </bottom>
    <center>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure want to quit?" textAlignment="CENTER" BorderPane.alignment="CENTER" />
+      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure want to quit?" textAlignment="CENTER" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>
