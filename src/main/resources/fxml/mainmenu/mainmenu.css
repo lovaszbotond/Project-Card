@@ -1,6 +1,6 @@
 #mainmenu
 {
-    -fx-background-image: url("../images/mainmenu.jpg");
+    -fx-background-image: url("../../images/mainmenu.jpg");
 }
 #p1error
 {
@@ -58,6 +58,7 @@
 #p1field:hover
 {
     -fx-background-color: darkred;
+    -fx-background-radius: 22px;
 }
 #p2field
 {
@@ -65,8 +66,10 @@
     -fx-text-inner-color: white;
     -fx-font-weight: bold;
     -fx-font-size: large;
+
 }
 #p2field:hover
 {
     -fx-background-color: darkred;
+    -fx-background-radius: 22px;
 }
