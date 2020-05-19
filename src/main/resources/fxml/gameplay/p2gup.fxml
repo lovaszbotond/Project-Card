@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PlayerTwoGiveUpBoxController">
+    <center>
+        <Button fx:id="accept" mnemonicParsing="false" onAction="#acceptHandler" text="Accept" BorderPane.alignment="CENTER" />
+    </center>
+    <top>
+        <Label fx:id="p2guptext" ellipsisString="" prefHeight="17.0" prefWidth="312.0" textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets top="20.0" />
+            </BorderPane.margin>
+        </Label>
+    </top>
+</BorderPane>

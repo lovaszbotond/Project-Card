@@ -51,5 +51,18 @@ public class GamePlayTableController {
         stage.show();
         Logger.info("Player one : {} want to give up.",p1Name);
     }
+
+    public void PlayerTwoGupHandler(ActionEvent actionEvent) throws IOException {
+
+        // TODO -> only player 2 turn can use this
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/gameplay/p2gup.fxml"));
+        Parent root = fxmlLoader.load();
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Never Give Up");
+        stage.show();
+        Logger.info("Player two : {} want to give up.",p2Name);
+    }
 }
 
