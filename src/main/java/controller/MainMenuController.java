@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 
+import gameplay.GameData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,8 +61,8 @@ public class MainMenuController {
         if (!p1Field.getText().isEmpty() && !p2Field.getText().isEmpty())
         {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/gameplay/gameplaytable.fxml"));
+            GameData.setPLayers(p1Field.getText(),p2Field.getText());
             Parent root = fxmlLoader.load();
-            fxmlLoader.<GamePlayTableController>getController().fieldNames(p1Field.getText(), p2Field.getText());
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Project--card");

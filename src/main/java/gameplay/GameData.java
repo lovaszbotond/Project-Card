@@ -1,26 +1,35 @@
 package gameplay;
 
 
-import lombok.Data;
 
-
-@Data
 public class GameData {
 
-    private GamePlayer[] players;
+    private static GamePlayer[] players;
 
-    private int turn;
+    private static int turn;
 
-    public GameData()
+
+
+    public static void setPLayers(String p1name, String p2name)
     {
         players = new GamePlayer[2];
 
-        players[0] = GamePlayer.builder().name("p1Name").build();
-        players[1] = GamePlayer.builder().name("p2Name").build();
+        players[0] = GamePlayer.builder().name(p1name).build();
+        players[1] = GamePlayer.builder().name(p2name).build();
     }
-    public GamePlayer getGamePlayer(int gamePlayerIndex)
+    public static GamePlayer getGamePlayer(int gamePlayerIndex)
     {
         return players[gamePlayerIndex];
     }
+
+    public static void setTurn(int a)
+    {
+        turn = a;
+    }
+    public static int getTurn()
+    {
+        return turn;
+    }
+
 
 }

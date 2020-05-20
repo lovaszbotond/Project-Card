@@ -8,7 +8,7 @@ import lombok.Data;
 public class GamePlayer {
     private String name;
 
-    private int healthpoint;
+   // private int healthpoint;
 
    // private Special specialeffect;
 

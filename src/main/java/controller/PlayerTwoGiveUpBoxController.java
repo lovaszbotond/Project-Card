@@ -1,6 +1,7 @@
 package controller;
 
 
+import gameplay.GameData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +24,7 @@ public class PlayerTwoGiveUpBoxController {
         @FXML
         public void initialize()
         {
-            p2guptext.setText(GamePlayTableController.p2Name + " gave up.");
+            p2guptext.setText(GameData.getGamePlayer(1).getName() + " gave up.");
         }
 
         public void acceptHandler(ActionEvent actionEvent) throws IOException {
@@ -34,7 +35,7 @@ public class PlayerTwoGiveUpBoxController {
             stage.setTitle("Project--card");
             stage.setResizable(false);
             stage.show();
-            Logger.info("Player two: {} gave up.",GamePlayTableController.p2Name);
+            Logger.info("Player two: {} gave up.",GameData.getGamePlayer(1).getName());
         }
     }
 

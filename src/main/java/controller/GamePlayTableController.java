@@ -6,6 +6,7 @@ import gameplay.GameData;
 import java.io.IOException;
 
 
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import javafx.animation.Animation;
@@ -19,43 +20,35 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import lombok.Data;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.tinylog.Logger;
 
-
+@Data
 public class GamePlayTableController {
 
     @FXML
     private Label p1timer;
     private long start1;
-
     @FXML
     private Label p2timer;
     private long start2;
-
     @FXML
-    private Label p1nameslot;
+    private Label playeronenameslot,playertwonameslot;
     @FXML
-    private Label p2nameslot;
+    private Button p1gup,p2gup;
+    @FXML
+    private Button p2spec,p1spec;
+    @FXML
+    private Button p2card00,p2card01,p1card00,p1card01;
+    @FXML
+    private Button p1Deck,p2Deck;
 
 
-    private GameData gameData;
-    public static String p1Name;
-    public static String p2Name;
-
-    public void fieldNames( String p1Name, String p2Name)
-    {
-        this.p1Name = p1Name;
-        this.p2Name = p2Name;
-
-        gameData.getGamePlayer(0).setName(p1Name);
-        gameData.getGamePlayer(1).setName(p2Name);
-    }
 
     @FXML
     public void initialize()
     {
-        gameData = new GameData();
 
         start1 = System.currentTimeMillis();
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
@@ -64,7 +57,7 @@ public class GamePlayTableController {
         }), new KeyFrame(Duration.seconds(1)));
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
-        // TODO -> stop if enbutton is pressed , and set the player 1 timeline maximum value
+        // TODO -> stop if end button is pressed , and set the player 1 timeline maximum value
 
         start2 = System.currentTimeMillis();
         Timeline clock2 = new Timeline(new KeyFrame(Duration.ZERO, e -> {
@@ -73,18 +66,23 @@ public class GamePlayTableController {
         }), new KeyFrame(Duration.seconds(1)));
         clock2.setCycleCount(Animation.INDEFINITE);
         clock2.play();
-        // TODO -> stop if enbutton is pressed , and set the player 2 timeline maximum value
 
-        p1nameslot.setText(p1Name);
-        p2nameslot.setText(p2Name);
+        p2gup.setDisable(true);
+        p2gup.setDisable(true);
+        p2spec.setDisable(true);
+        p2card00.setDisable(true);
+        p2card01.setDisable(true);
+        p2Deck.setDisable(true);
+        // TODO -> stop if end button is pressed , and set the player 2 timeline maximum value
+
+        playeronenameslot.setText(GameData.getGamePlayer(0).getName());
+        playertwonameslot.setText(GameData.getGamePlayer(1).getName());
+
     }
-
-
 
 
     public void PlayerOneGupHandler(ActionEvent actionEvent) throws IOException {
 
-        // TODO -> only player 1 turn can use this
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/gameplay/p1gup.fxml"));
         Parent root = fxmlLoader.load();
@@ -92,12 +90,11 @@ public class GamePlayTableController {
         stage.setScene(new Scene(root));
         stage.setTitle("Never Give Up");
         stage.show();
-        Logger.info("Player one : {} want to give up.",p1Name);
+        Logger.info("Player one : {} want to give up.",GameData.getGamePlayer(0).getName());
     }
 
     public void PlayerTwoGupHandler(ActionEvent actionEvent) throws IOException {
 
-        // TODO -> only player 2 turn can use this
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/gameplay/p2gup.fxml"));
         Parent root = fxmlLoader.load();
@@ -105,16 +102,36 @@ public class GamePlayTableController {
         stage.setScene(new Scene(root));
         stage.setTitle("Never Give Up");
         stage.show();
-        Logger.info("Player two : {} want to give up.",p2Name);
+        Logger.info("Player two : {} want to give up.",GameData.getGamePlayer(1).getName());
     }
 
     public void endTurnHandler(MouseEvent mouseEvent) {
-        if (gameData.getTurn() == 0) {
-            Logger.info("{} turn.",p1Name);
-            gameData.setTurn(1);
+        if (GameData.getTurn() == 0) {
+            Logger.info("{} turn.",GameData.getGamePlayer(0).getName());
+            GameData.setTurn(1);
+            p1gup.setDisable(false);
+            p2gup.setDisable(true);
+            p1spec.setDisable(false);
+            p2spec.setDisable(true);
+            p2Deck.setDisable(true);
+            p1Deck.setDisable(false);
+            p2card00.setDisable(true);
+            p1card00.setDisable(false);
+            p2card01.setDisable(true);
+            p1card01.setDisable(false);
         } else {
-            Logger.info("{} turn.",p2Name);
-            gameData.setTurn(0);
+            Logger.info("{} turn.",GameData.getGamePlayer(1).getName());
+            GameData.setTurn(0);
+            p2gup.setDisable(false);
+            p1gup.setDisable(true);
+            p2spec.setDisable(false);
+            p1spec.setDisable(true);
+            p2Deck.setDisable(false);
+            p1Deck.setDisable(true);
+            p2card00.setDisable(false);
+            p1card00.setDisable(true);
+            p2card01.setDisable(false);
+            p1card01.setDisable(true);
         }
     }
 }
