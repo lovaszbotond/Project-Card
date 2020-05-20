@@ -33,6 +33,10 @@ public class GamePlayTableController {
     private Label p2timer;
     private long start2;
 
+    @FXML
+    private Label p1nameslot;
+    @FXML
+    private Label p2nameslot;
 
 
     private GameData gameData;
@@ -70,6 +74,9 @@ public class GamePlayTableController {
         clock2.setCycleCount(Animation.INDEFINITE);
         clock2.play();
         // TODO -> stop if enbutton is pressed , and set the player 2 timeline maximum value
+
+        p1nameslot.setText(p1Name);
+        p2nameslot.setText(p2Name);
     }
 
 

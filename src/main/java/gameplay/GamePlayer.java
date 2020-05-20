@@ -7,6 +7,15 @@ import lombok.Data;
 @Data
 public class GamePlayer {
     private String name;
+
+    private int healthpoint;
+
+   // private Special specialeffect;
+
+   // private CardDeck carddeck;
+
+   // private HandCards handcard;
+
 }
 
 /*
