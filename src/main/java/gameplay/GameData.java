@@ -9,6 +9,8 @@ public class GameData {
 
     private GamePlayer[] players;
 
+    private int turn;
+
     public GameData()
     {
         players = new GamePlayer[2];

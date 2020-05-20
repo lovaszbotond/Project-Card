@@ -5,11 +5,8 @@ import gameplay.GameData;
 
 import java.io.IOException;
 
-import java.sql.PseudoColumnUsage;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
+import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -104,5 +101,14 @@ public class GamePlayTableController {
         Logger.info("Player two : {} want to give up.",p2Name);
     }
 
+    public void endTurnHandler(MouseEvent mouseEvent) {
+        if (gameData.getTurn() == 0) {
+            Logger.info("{} turn.",p1Name);
+            gameData.setTurn(1);
+        } else {
+            Logger.info("{} turn.",p2Name);
+            gameData.setTurn(0);
+        }
+    }
 }
 
