@@ -8,6 +8,8 @@ public class GameData {
 
     private static int turn;
 
+    private String cardName;
+
 
 
     public static void setPLayers(String p1name, String p2name)
@@ -33,3 +35,4 @@ public class GameData {
 
 
 }
+

@@ -165,6 +165,7 @@ public class GamePlayTableController {
             p1card00.setDisable(true);
             p2card01.setDisable(false);
             p1card01.setDisable(true);
+
         }
     }
 
