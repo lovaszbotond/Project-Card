@@ -4,10 +4,17 @@ import gameplay.GameData;
 
 
 import java.io.IOException;
+import java.sql.Time;
+import java.util.Collection;
 
 
+import javafx.animation.KeyValue;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -43,12 +50,28 @@ public class GamePlayTableController {
     private Button p2card00,p2card01,p1card00,p1card01;
     @FXML
     private Button p1Deck,p2Deck;
+    @FXML
+    private Button endturn;
 
+    /*
+    private Timeline animation;
+    private int temp = 60;
+    private String s = "";
+
+    private void timeLabel()
+    {
+        if(temp >=0)
+        {
+            temp--;
+        }
+        s = temp + "";
+        p1timer.setText(s);
+    }*/
 
 
     @FXML
-    public void initialize()
-    {
+    public void initialize() {
+
 
         start1 = System.currentTimeMillis();
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
@@ -57,6 +80,7 @@ public class GamePlayTableController {
         }), new KeyFrame(Duration.seconds(1)));
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
+
         // TODO -> stop if end button is pressed , and set the player 1 timeline maximum value
 
         start2 = System.currentTimeMillis();
@@ -78,7 +102,16 @@ public class GamePlayTableController {
         playeronenameslot.setText(GameData.getGamePlayer(0).getName());
         playertwonameslot.setText(GameData.getGamePlayer(1).getName());
 
+        GameData.setTurn(0);
+
+
+        /*p1timer = new Label("60");
+        animation = new Timeline(new KeyFrame(Duration.seconds(1), e -> timeLabel()));
+        animation.setCycleCount(Timeline.INDEFINITE);
+        animation.play();*/
+
     }
+
 
 
     public void PlayerOneGupHandler(ActionEvent actionEvent) throws IOException {
@@ -134,5 +167,6 @@ public class GamePlayTableController {
             p1card01.setDisable(true);
         }
     }
+
 }
 
