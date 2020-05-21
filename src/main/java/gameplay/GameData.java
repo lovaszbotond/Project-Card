@@ -14,8 +14,8 @@ public class GameData {
     {
         players = new GamePlayer[2];
 
-        players[0] = GamePlayer.builder().name(p1name).build();
-        players[1] = GamePlayer.builder().name(p2name).build();
+        players[0] = GamePlayer.builder().name(p1name).healthpoint(10).build();
+        players[1] = GamePlayer.builder().name(p2name).healthpoint(10).build();
     }
     public static GamePlayer getGamePlayer(int gamePlayerIndex)
     {
