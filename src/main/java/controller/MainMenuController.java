@@ -61,7 +61,7 @@ public class MainMenuController {
         if (!p1Field.getText().isEmpty() && !p2Field.getText().isEmpty())
         {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/gameplay/gameplaytable.fxml"));
-            GameData.setPLayers(p1Field.getText(),p2Field.getText(),null,null,null,null);
+            GameData.setPLayers(p1Field.getText(),p2Field.getText(),null,null,null,null,0,0);
             Parent root = fxmlLoader.load();
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
