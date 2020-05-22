@@ -5,15 +5,19 @@ import gameplay.GameData;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 
 import gameplay.gamecards.CardDeck;
+import gameplay.gamecards.GameCard;
 import javafx.scene.control.Button;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -56,8 +60,10 @@ public class GamePlayTableController {
     private Button p1Deck,p2Deck;
     @FXML
     private GridPane gridp1,gridp2;
-    //  @FXML
-   // private Button endturn;
+
+    private CardDeck player1hand;
+    private CardDeck player2hand;
+
 
     @FXML
     public void initialize() throws JAXBException {
@@ -84,8 +90,8 @@ public class GamePlayTableController {
         p2gup.setDisable(true);
         p2gup.setDisable(true);
         p2spec.setDisable(true);
-        p2card00.setDisable(true);
-        p2card01.setDisable(true);
+        p2card00.setVisible(false);
+        p2card01.setVisible(false);
         p2Deck.setDisable(true);
         // TODO -> stop if end button is pressed , and set the player 2 timeline maximum value
 
@@ -93,20 +99,39 @@ public class GamePlayTableController {
         playertwonameslot.setText(GameData.getGamePlayer(1).getName());
 
         GameData.setTurn(0);
-
+        //special button
         p1Lifepoints.setText(String.valueOf(GameData.getGamePlayer(0).getHealthpoint()));
         p2Lifepoints.setText(String.valueOf(GameData.getGamePlayer(1).getHealthpoint()));
-       // p1card00.setGraphic(new ImageView("/images/deckimages/cyrax.jpg"));
 
 
-       //    JAXBHelper.fromXML(Class<T> , IS )
-            // ez mar az egész a mappelés - jaxb helper hozza letre az objektumot az xml alapjan Carddeck a typus + valtozonec
-            // deck1.getGameCards().get(1);
+        //set card 1 2
+        CardDeck deck1 = JAXBHelper.fromXML(gameplay.gamecards.CardDeck.class ,  getClass().getClassLoader().getResourceAsStream("xml/deck1.xml"));
+        CardDeck deck2 = JAXBHelper.fromXML(gameplay.gamecards.CardDeck.class ,  getClass().getClassLoader().getResourceAsStream("xml/deck2.xml"));
+        Collections.shuffle(deck1.getGameCards());
+        Collections.shuffle(deck2.getGameCards());
+
+        Random randdeck = new Random();
+        if(randdeck.nextBoolean()) {
+            GameData.getGamePlayer(0).setCarddeck(deck1);
+            GameData.getGamePlayer(1).setCarddeck(deck2);
+        }else
+        {
+            GameData.getGamePlayer(0).setCarddeck(deck2);
+            GameData.getGamePlayer(1).setCarddeck(deck1);
+        }
 
 
-          CardDeck deck1 = JAXBHelper.fromXML(gameplay.gamecards.CardDeck.class ,  getClass().getClassLoader().getResourceAsStream("xml/deck1.xml"));
-          p1card00.setGraphic(new ImageView(deck1.getGameCards().get(1).getCardImage()));
+        player1hand = new CardDeck(new ArrayList<>());
+        player1hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(0).getCarddeck().getGameCards()));
+        player1hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(0).getCarddeck().getGameCards()));
+        p1card00.setGraphic(new ImageView(player1hand.getGameCards().get(0).getCardImage()));
+        p1card01.setGraphic(new ImageView(player1hand.getGameCards().get(1).getCardImage()));
 
+        player2hand = new CardDeck(new ArrayList<>());
+        player2hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(1).getCarddeck().getGameCards()));
+        player2hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(1).getCarddeck().getGameCards()));
+        p2card00.setGraphic(new ImageView(player2hand.getGameCards().get(0).getCardImage()));
+        p2card01.setGraphic(new ImageView(player2hand.getGameCards().get(1).getCardImage()));
 
     }
 
@@ -115,7 +140,7 @@ public class GamePlayTableController {
     public void PlayerOneGupHandler(ActionEvent actionEvent) throws IOException {
 
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/gameplay/p1gup.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/gameplay/p1gup.fxml"));
         Parent root = fxmlLoader.load();
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
@@ -127,7 +152,7 @@ public class GamePlayTableController {
     public void PlayerTwoGupHandler(ActionEvent actionEvent) throws IOException {
 
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/gameplay/p2gup.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/gameplay/p2gup.fxml"));
         Parent root = fxmlLoader.load();
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
@@ -146,10 +171,11 @@ public class GamePlayTableController {
             p2spec.setDisable(true);
             p2Deck.setDisable(true);
             p1Deck.setDisable(false);
-            p2card00.setDisable(true);
-            p1card00.setDisable(false);
-            p2card01.setDisable(true);
-            p1card01.setDisable(false);
+            p2card00.setVisible(false);
+            p1card00.setVisible(true);
+            p2card01.setVisible(false);
+            p1card01.setVisible(true);
+
         } else {
             Logger.info("{} turn.",GameData.getGamePlayer(1).getName());
             GameData.setTurn(0);
@@ -159,10 +185,10 @@ public class GamePlayTableController {
             p1spec.setDisable(true);
             p2Deck.setDisable(false);
             p1Deck.setDisable(true);
-            p2card00.setDisable(false);
-            p1card00.setDisable(true);
-            p2card01.setDisable(false);
-            p1card01.setDisable(true);
+            p2card00.setVisible(true);
+            p1card00.setVisible(false);
+            p2card01.setVisible(true);
+            p1card01.setVisible(false);
 
         }
     }
@@ -170,13 +196,68 @@ public class GamePlayTableController {
 
     public void p1specHandler(ActionEvent actionEvent)
     {
-        p1Lifepoints.setText(String.valueOf(GameData.getGamePlayer(0).getHealthpoint() + 10));
+        GameData.getGamePlayer(0).setHealthpoint(GameData.getGamePlayer(0).getHealthpoint() + 10);
+        p1Lifepoints.setText(String.valueOf(GameData.getGamePlayer(0).getHealthpoint()));
         gridp1.getChildren().remove(p1spec);
     }
 
     public void p2specHandler(ActionEvent actionEvent) {
-        p2Lifepoints.setText(String.valueOf(GameData.getGamePlayer(0).getHealthpoint() + 10));
+        GameData.getGamePlayer(1).setHealthpoint(GameData.getGamePlayer(1).getHealthpoint() + 10);
+        p2Lifepoints.setText(String.valueOf(GameData.getGamePlayer(1).getHealthpoint()));
         gridp2.getChildren().remove(p2spec);
     }
+
+    public GameCard getTopCardFromDeck(List<GameCard> deck)
+    {
+        GameCard card = deck.get(0);
+        deck.remove(0);
+        return card;
+    }
+    public GameCard getCardFromDeck(List<GameCard> deck, int index)
+    {
+        GameCard card = deck.get(index);
+        deck.remove(index);
+        return card;
+    }
+
+
+    public void p2DeckHandler(ActionEvent actionEvent) {
+        if(player2hand.getGameCards().size() == 1)
+        {
+            player2hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(1).getCarddeck().getGameCards()));
+            p2card00.setGraphic(new ImageView(player2hand.getGameCards().get(0).getCardImage()));
+            p2card01.setGraphic(new ImageView(player2hand.getGameCards().get(1).getCardImage()));
+        }else if(player2hand.getGameCards().size() == 0)
+        {
+            player2hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(1).getCarddeck().getGameCards()));
+            p2card00.setGraphic(new ImageView(player2hand.getGameCards().get(0).getCardImage()));
+            p2card01.setVisible(false);
+
+        }else
+        {
+            Logger.info("Hand is full");
+        }
+    }
+
+    public void p1DeckHandler(ActionEvent actionEvent) {
+        if(player1hand.getGameCards().size() == 1)
+        {
+            player1hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(1).getCarddeck().getGameCards()));
+            p1card00.setGraphic(new ImageView(player1hand.getGameCards().get(0).getCardImage()));
+            p1card01.setGraphic(new ImageView(player1hand.getGameCards().get(1).getCardImage()));
+        }else if(player1hand.getGameCards().size() == 0)
+        {
+            player1hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(1).getCarddeck().getGameCards()));
+            p1card00.setGraphic(new ImageView(player1hand.getGameCards().get(0).getCardImage()));
+            p1card01.setVisible(false);
+
+        }else
+        {
+            Logger.info("Hand is full");
+        }
+    }
+
+    //p2card00.setGraphic(new ImageView(player2hand.getGameCards().get(0).getCardImage()));
+    //p2card01.setGraphic(new ImageView(player2hand.getGameCards().get(1).getCardImage()));
 }
 

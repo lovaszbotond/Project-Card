@@ -1,0 +1,222 @@
+[1mdiff --git a/src/main/java/controller/GamePlayTableController.java b/src/main/java/controller/GamePlayTableController.java[m
+[1mindex 3758d01..4bdea2c 100644[m
+[1m--- a/src/main/java/controller/GamePlayTableController.java[m
+[1m+++ b/src/main/java/controller/GamePlayTableController.java[m
+[36m@@ -1,19 +1,25 @@[m
+ package controller;[m
+ [m
+[32m+[m[32mimport com.google.inject.internal.cglib.reflect.$FastClass;[m
+ import gameplay.GameData;[m
+ [m
+ [m
+ [m
+ import java.io.IOException;[m
+[32m+[m[32mimport java.util.ArrayList;[m
+[32m+[m[32mimport java.util.Collections;[m
+[32m+[m[32mimport java.util.List;[m
+[32m+[m[32mimport java.util.Random;[m
+ [m
+ [m
+[32m+[m[32mimport gameplay.GamePlayer;[m
+ import gameplay.gamecards.CardDeck;[m
+[32m+[m[32mimport gameplay.gamecards.GameCard;[m
+ import javafx.scene.control.Button;[m
+ [m
+ import javafx.scene.image.ImageView;[m
+ import javafx.scene.input.MouseEvent;[m
+ import javafx.scene.layout.GridPane;[m
+[31m-import javafx.scene.layout.VBox;[m
+ import javafx.util.Duration;[m
+ import javafx.animation.Animation;[m
+ import javafx.animation.KeyFrame;[m
+[36m@@ -56,8 +62,10 @@[m [mpublic class GamePlayTableController {[m
+     private Button p1Deck,p2Deck;[m
+     @FXML[m
+     private GridPane gridp1,gridp2;[m
+[31m-    //  @FXML[m
+[31m-   // private Button endturn;[m
+[32m+[m
+[32m+[m[32m    private CardDeck player1hand;[m
+[32m+[m[32m    private CardDeck player2hand;[m
+[32m+[m
+ [m
+     @FXML[m
+     public void initialize() throws JAXBException {[m
+[36m@@ -84,8 +92,8 @@[m [mpublic class GamePlayTableController {[m
+         p2gup.setDisable(true);[m
+         p2gup.setDisable(true);[m
+         p2spec.setDisable(true);[m
+[31m-        p2card00.setDisable(true);[m
+[31m-        p2card01.setDisable(true);[m
+[32m+[m[32m        p2card00.setVisible(false);[m
+[32m+[m[32m        p2card01.setVisible(false);[m
+         p2Deck.setDisable(true);[m
+         // TODO -> stop if end button is pressed , and set the player 2 timeline maximum value[m
+ [m
+[36m@@ -93,20 +101,39 @@[m [mpublic class GamePlayTableController {[m
+         playertwonameslot.setText(GameData.getGamePlayer(1).getName());[m
+ [m
+         GameData.setTurn(0);[m
+[31m-[m
+[32m+[m[32m        //special button[m
+         p1Lifepoints.setText(String.valueOf(GameData.getGamePlayer(0).getHealthpoint()));[m
+         p2Lifepoints.setText(String.valueOf(GameData.getGamePlayer(1).getHealthpoint()));[m
+[31m-       // p1card00.setGraphic(new ImageView("/images/deckimages/cyrax.jpg"));[m
+ [m
+ [m
+[31m-       //    JAXBHelper.fromXML(Class<T> , IS )[m
+[31m-            // ez mar az egész a mappelés - jaxb helper hozza letre az objektumot az xml alapjan Carddeck a typus + valtozonec[m
+[31m-            // deck1.getGameCards().get(1);[m
+[32m+[m[32m        //set card 1 2[m
+[32m+[m[32m        CardDeck deck1 = JAXBHelper.fromXML(gameplay.gamecards.CardDeck.class ,  getClass().getClassLoader().getResourceAsStream("xml/deck1.xml"));[m
+[32m+[m[32m        CardDeck deck2 = JAXBHelper.fromXML(gameplay.gamecards.CardDeck.class ,  getClass().getClassLoader().getResourceAsStream("xml/deck2.xml"));[m
+[32m+[m[32m        Collections.shuffle(deck1.getGameCards());[m
+[32m+[m[32m        Collections.shuffle(deck2.getGameCards());[m
+[32m+[m
+[32m+[m[32m        Random randdeck = new Random();[m
+[32m+[m[32m        if(randdeck.nextBoolean()) {[m
+[32m+[m[32m            GameData.getGamePlayer(0).setCarddeck(deck1);[m
+[32m+[m[32m            GameData.getGamePlayer(1).setCarddeck(deck2);[m
+[32m+[m[32m        }else[m
+[32m+[m[32m        {[m
+[32m+[m[32m            GameData.getGamePlayer(0).setCarddeck(deck2);[m
+[32m+[m[32m            GameData.getGamePlayer(1).setCarddeck(deck1);[m
+[32m+[m[32m        }[m
+ [m
+ [m
+[31m-          CardDeck deck1 = JAXBHelper.fromXML(gameplay.gamecards.CardDeck.class ,  getClass().getClassLoader().getResourceAsStream("xml/deck1.xml"));[m
+[31m-          p1card00.setGraphic(new ImageView(deck1.getGameCards().get(1).getCardImage()));[m
+[32m+[m[32m        player1hand = new CardDeck(new ArrayList<>());[m
+[32m+[m[32m        player1hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(0).getCarddeck().getGameCards()));[m
+[32m+[m[32m        player1hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(0).getCarddeck().getGameCards()));[m
+[32m+[m[32m        p1card00.setGraphic(new ImageView(player1hand.getGameCards().get(0).getCardImage()));[m
+[32m+[m[32m        p1card01.setGraphic(new ImageView(player1hand.getGameCards().get(1).getCardImage()));[m
+ [m
+[32m+[m[32m        player2hand = new CardDeck(new ArrayList<>());[m
+[32m+[m[32m        player2hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(1).getCarddeck().getGameCards()));[m
+[32m+[m[32m        player2hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(1).getCarddeck().getGameCards()));[m
+[32m+[m[32m        p2card00.setGraphic(new ImageView(player2hand.getGameCards().get(0).getCardImage()));[m
+[32m+[m[32m        p2card01.setGraphic(new ImageView(player2hand.getGameCards().get(1).getCardImage()));[m
+ [m
+     }[m
+ [m
+[36m@@ -115,7 +142,7 @@[m [mpublic class GamePlayTableController {[m
+     public void PlayerOneGupHandler(ActionEvent actionEvent) throws IOException {[m
+ [m
+ [m
+[31m-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/gameplay/p1gup.fxml"));[m
+[32m+[m[32m        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/gameplay/p1gup.fxml"));[m
+         Parent root = fxmlLoader.load();[m
+         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();[m
+         stage.setScene(new Scene(root));[m
+[36m@@ -127,7 +154,7 @@[m [mpublic class GamePlayTableController {[m
+     public void PlayerTwoGupHandler(ActionEvent actionEvent) throws IOException {[m
+ [m
+ [m
+[31m-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/gameplay/p2gup.fxml"));[m
+[32m+[m[32m        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/gameplay/p2gup.fxml"));[m
+         Parent root = fxmlLoader.load();[m
+         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();[m
+         stage.setScene(new Scene(root));[m
+[36m@@ -146,10 +173,11 @@[m [mpublic class GamePlayTableController {[m
+             p2spec.setDisable(true);[m
+             p2Deck.setDisable(true);[m
+             p1Deck.setDisable(false);[m
+[31m-            p2card00.setDisable(true);[m
+[31m-            p1card00.setDisable(false);[m
+[31m-            p2card01.setDisable(true);[m
+[31m-            p1card01.setDisable(false);[m
+[32m+[m[32m            p2card00.setVisible(false);[m
+[32m+[m[32m            p1card00.setVisible(true);[m
+[32m+[m[32m            p2card01.setVisible(false);[m
+[32m+[m[32m            p1card01.setVisible(true);[m
+[32m+[m
+         } else {[m
+             Logger.info("{} turn.",GameData.getGamePlayer(1).getName());[m
+             GameData.setTurn(0);[m
+[36m@@ -159,10 +187,10 @@[m [mpublic class GamePlayTableController {[m
+             p1spec.setDisable(true);[m
+             p2Deck.setDisable(false);[m
+             p1Deck.setDisable(true);[m
+[31m-            p2card00.setDisable(false);[m
+[31m-            p1card00.setDisable(true);[m
+[31m-            p2card01.setDisable(false);[m
+[31m-            p1card01.setDisable(true);[m
+[32m+[m[32m            p2card00.setVisible(true);[m
+[32m+[m[32m            p1card00.setVisible(false);[m
+[32m+[m[32m            p2card01.setVisible(true);[m
+[32m+[m[32m            p1card01.setVisible(false);[m
+ [m
+         }[m
+     }[m
+[36m@@ -170,13 +198,68 @@[m [mpublic class GamePlayTableController {[m
+ [m
+     public void p1specHandler(ActionEvent actionEvent)[m
+     {[m
+[31m-        p1Lifepoints.setText(String.valueOf(GameData.getGamePlayer(0).getHealthpoint() + 10));[m
+[32m+[m[32m        GameData.getGamePlayer(0).setHealthpoint(GameData.getGamePlayer(0).getHealthpoint() + 10);[m
+[32m+[m[32m        p1Lifepoints.setText(String.valueOf(GameData.getGamePlayer(0).getHealthpoint()));[m
+         gridp1.getChildren().remove(p1spec);[m
+     }[m
+ [m
+     public void p2specHandler(ActionEvent actionEvent) {[m
+[31m-        p2Lifepoints.setText(String.valueOf(GameData.getGamePlayer(0).getHealthpoint() + 10));[m
+[32m+[m[32m        GameData.getGamePlayer(1).setHealthpoint(GameData.getGamePlayer(1).getHealthpoint() + 10);[m
+[32m+[m[32m        p2Lifepoints.setText(String.valueOf(GameData.getGamePlayer(1).getHealthpoint()));[m
+         gridp2.getChildren().remove(p2spec);[m
+     }[m
+[32m+[m
+[32m+[m[32m    public GameCard getTopCardFromDeck(List<GameCard> deck)[m
+[32m+[m[32m    {[m
+[32m+[m[32m        GameCard card = deck.get(0);[m
+[32m+[m[32m        deck.remove(0);[m
+[32m+[m[32m        return card;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public GameCard getCardFromDeck(List<GameCard> deck, int index)[m
+[32m+[m[32m    {[m
+[32m+[m[32m        GameCard card = deck.get(index);[m
+[32m+[m[32m        deck.remove(index);[m
+[32m+[m[32m        return card;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m
+[32m+[m[32m    public void p2DeckHandler(ActionEvent actionEvent) {[m
+[32m+[m[32m        if(player2hand.getGameCards().size() == 1)[m
+[32m+[m[32m        {[m
+[32m+[m[32m            player2hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(1).getCarddeck().getGameCards()));[m
+[32m+[m[32m            p2card00.setGraphic(new ImageView(player2hand.getGameCards().get(0).getCardImage()));[m
+[32m+[m[32m            p2card01.setGraphic(new ImageView(player2hand.getGameCards().get(1).getCardImage()));[m
+[32m+[m[32m        }else if(player2hand.getGameCards().size() == 0)[m
+[32m+[m[32m        {[m
+[32m+[m[32m            player2hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(1).getCarddeck().getGameCards()));[m
+[32m+[m[32m            p2card00.setGraphic(new ImageView(player2hand.getGameCards().get(0).getCardImage()));[m
+[32m+[m[32m            p2card01.setVisible(false);[m
+[32m+[m
+[32m+[m[32m        }else[m
+[32m+[m[32m        {[m
+[32m+[m[32m            Logger.info("Hand is full");[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public void p1DeckHandler(ActionEvent actionEvent) {[m
+[32m+[m[32m        if(player1hand.getGameCards().size() == 1)[m
+[32m+[m[32m        {[m
+[32m+[m[32m            player1hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(1).getCarddeck().getGameCards()));[m
+[32m+[m[32m            p1card00.setGraphic(new ImageView(player1hand.getGameCards().get(0).getCardImage()));[m
+[32m+[m[32m            p1card01.setGraphic(new ImageView(player1hand.getGameCards().get(1).getCardImage()));[m
+[32m+[m[32m        }else if(player1hand.getGameCards().size() == 0)[m
+[32m+[m[32m        {[m
+[32m+[m[32m            player1hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(1).getCarddeck().getGameCards()));[m
+[32m+[m[32m            p1card00.setGraphic(new ImageView(player1hand.getGameCards().get(0).getCardImage()));[m
+[32m+[m[32m            p1card01.setVisible(false);[m
+[32m+[m
+[32m+[m[32m        }else[m
+[32m+[m[32m        {[m
+[32m+[m[32m            Logger.info("Hand is full");[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    //p2card00.setGraphic(new ImageView(player2hand.getGameCards().get(0).getCardImage()));[m
+[32m+[m[32m    //p2card01.setGraphic(new ImageView(player2hand.getGameCards().get(1).getCardImage()));[m
+ }[m
+ [m
