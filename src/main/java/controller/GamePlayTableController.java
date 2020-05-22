@@ -3,18 +3,17 @@ package controller;
 import gameplay.GameData;
 
 
+
 import java.io.IOException;
-import java.sql.Time;
-import java.util.Collection;
 
 
-import javafx.animation.KeyValue;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import gameplay.gamecards.CardDeck;
 import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
+
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -30,6 +29,9 @@ import javafx.stage.Stage;
 import lombok.Data;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.tinylog.Logger;
+import xmlhelper.JAXBHelper;
+
+import javax.xml.bind.JAXBException;
 
 @Data
 public class GamePlayTableController {
@@ -43,6 +45,8 @@ public class GamePlayTableController {
     @FXML
     private Label playeronenameslot,playertwonameslot;
     @FXML
+    private Label p1Lifepoints,p2Lifepoints;
+    @FXML
     private Button p1gup,p2gup;
     @FXML
     private Button p2spec,p1spec;
@@ -51,26 +55,12 @@ public class GamePlayTableController {
     @FXML
     private Button p1Deck,p2Deck;
     @FXML
-    private Button endturn;
-
-    /*
-    private Timeline animation;
-    private int temp = 60;
-    private String s = "";
-
-    private void timeLabel()
-    {
-        if(temp >=0)
-        {
-            temp--;
-        }
-        s = temp + "";
-        p1timer.setText(s);
-    }*/
-
+    private GridPane gridp1,gridp2;
+    //  @FXML
+   // private Button endturn;
 
     @FXML
-    public void initialize() {
+    public void initialize() throws JAXBException {
 
 
         start1 = System.currentTimeMillis();
@@ -104,11 +94,19 @@ public class GamePlayTableController {
 
         GameData.setTurn(0);
 
+        p1Lifepoints.setText(String.valueOf(GameData.getGamePlayer(0).getHealthpoint()));
+        p2Lifepoints.setText(String.valueOf(GameData.getGamePlayer(1).getHealthpoint()));
+       // p1card00.setGraphic(new ImageView("/images/deckimages/cyrax.jpg"));
 
-        /*p1timer = new Label("60");
-        animation = new Timeline(new KeyFrame(Duration.seconds(1), e -> timeLabel()));
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.play();*/
+
+       //    JAXBHelper.fromXML(Class<T> , IS )
+            // ez mar az egész a mappelés - jaxb helper hozza letre az objektumot az xml alapjan Carddeck a typus + valtozonec
+            // deck1.getGameCards().get(1);
+
+
+          CardDeck deck1 = JAXBHelper.fromXML(gameplay.gamecards.CardDeck.class ,  getClass().getClassLoader().getResourceAsStream("xml/deck1.xml"));
+          p1card00.setGraphic(new ImageView(deck1.getGameCards().get(1).getCardImage()));
+
 
     }
 
@@ -169,5 +167,16 @@ public class GamePlayTableController {
         }
     }
 
+
+    public void p1specHandler(ActionEvent actionEvent)
+    {
+        p1Lifepoints.setText(String.valueOf(GameData.getGamePlayer(0).getHealthpoint() + 10));
+        gridp1.getChildren().remove(p1spec);
+    }
+
+    public void p2specHandler(ActionEvent actionEvent) {
+        p2Lifepoints.setText(String.valueOf(GameData.getGamePlayer(0).getHealthpoint() + 10));
+        gridp2.getChildren().remove(p2spec);
+    }
 }
 
