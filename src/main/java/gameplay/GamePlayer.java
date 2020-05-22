@@ -1,5 +1,6 @@
 package gameplay;
 
+import gameplay.gamecards.CardDeck;
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,32 +11,9 @@ public class GamePlayer {
 
     private int healthpoint;
 
-   // private Special specialeffect;
+    private CardDeck carddeck;
 
-   // private CardDeck carddeck;
-
-   // private HandCards handcard;
+    private SpecialSkill special;
+    
 
 }
-
-/*
-public class player {
-    public String Name;
-
-    public void Player(String Name) {
-        this.Name = Name;
-    }
-
-    public String Name() {
-        return Name;
-    }
-
-    public void setName(String Name) {
-        this.Name = Name;
-    }
-
-    public String getName() {
-        return this.Name;
-    }
-}
- */
