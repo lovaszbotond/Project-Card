@@ -14,6 +14,6 @@ public class GamePlayer {
     private CardDeck carddeck;
 
     private SpecialSkill special;
-    
+
 
 }
