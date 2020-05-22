@@ -30,7 +30,7 @@ public class MainMenuController {
 
     @FXML
     public void ruleHandler(javafx.event.ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/mainmenu/rulebox.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/mainmenu/rulebox.fxml"));
         Parent root = fxmlLoader.load();
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
@@ -60,21 +60,20 @@ public class MainMenuController {
         }
         if (!p1Field.getText().isEmpty() && !p2Field.getText().isEmpty())
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/gameplay/gameplaytable.fxml"));
-            GameData.setPLayers(p1Field.getText(),p2Field.getText(),null,null,null,null,0,0);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/gameplay/gameplaytable.fxml"));
+            GameData.setPLayers(p1Field.getText(),p2Field.getText(),null,null,null,null);
             Parent root = fxmlLoader.load();
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Project--card");
             stage.setResizable(false);
-          //  stage.setMaximized(true);
             stage.show();
             Logger.info("Everything looks good , let start the duel and have fun!");
         }
     }
     @FXML
     public void exitHandler(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/mainmenu/exitquestion.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/mainmenu/exitquestion.fxml"));
         Parent root = fxmlLoader.load();
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
