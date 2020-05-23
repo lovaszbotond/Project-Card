@@ -65,14 +65,12 @@ public class GamePlayTableController {
     @FXML
     private Button endturn;
 
-    private CardDeck player1hand;
-    private CardDeck player2hand;
-    private CardDeck player1Table;
-    private CardDeck player2Table;
-    private boolean p2card00selected;
-    private boolean p2card01selected;
-    private boolean p1card00selected;
-    private boolean p1card01selected;
+    private CardDeck player1hand , player2hand;
+    private CardDeck player1Table , player2Table;
+    //Booleans for button selected or not ( hand )
+    private boolean p2card00selected , p2card01selected , p1card00selected , p1card01selected;
+    private boolean p2cardTableSlot00selected , p2cardTableSlot01selected , p1cardTableSlot00selected, p1cardTableSlot01selected;
+
 
 
     @FXML
@@ -142,6 +140,8 @@ public class GamePlayTableController {
         p2card00.setGraphic(new ImageView(player2hand.getGameCards().get(0).getCardImage()));
         p2card01.setGraphic(new ImageView(player2hand.getGameCards().get(1).getCardImage()));
 
+        player2Table = new CardDeck(new ArrayList<>());
+
     }
 
 
@@ -197,7 +197,18 @@ public class GamePlayTableController {
             p1card00.setVisible(false);
             p2card01.setVisible(true);
             p1card01.setVisible(false);
-
+            if(player2hand.getGameCards().size() == 0)
+            {
+                p2card00.setVisible(false);
+                p2card01.setVisible(false);
+            }else if (player2hand.getGameCards().size() == 1)
+            {
+                p2card01.setVisible(false);
+            }else
+            {
+                p2card00.setVisible(true);
+                p2card01.setVisible(true);
+            }
         }
     }
 
@@ -226,16 +237,28 @@ public class GamePlayTableController {
         return card;
     }
 
+   /* public GameCard getCardFromHand(List<GameCard> hand)
+    {
+        GameCard card = hand.get(0);
+        hand.remove(0);
+        return card;
+    }
+    */
+
 
     public void p2DeckHandler(ActionEvent actionEvent) {
         if (player2hand.getGameCards().size() == 1) {
             player2hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(1).getCarddeck().getGameCards()));
             p2card00.setGraphic(new ImageView(player2hand.getGameCards().get(0).getCardImage()));
             p2card01.setGraphic(new ImageView(player2hand.getGameCards().get(1).getCardImage()));
+            p2card01.setVisible(true);
+            p2card00.setVisible(true);
         } else if (player2hand.getGameCards().size() == 0) {
             player2hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(1).getCarddeck().getGameCards()));
             p2card00.setGraphic(new ImageView(player2hand.getGameCards().get(0).getCardImage()));
+            p2card00.setVisible(true);
             p2card01.setVisible(false);
+
 
         } else {
             Logger.info("Hand is full");
@@ -247,9 +270,12 @@ public class GamePlayTableController {
             player1hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(1).getCarddeck().getGameCards()));
             p1card00.setGraphic(new ImageView(player1hand.getGameCards().get(0).getCardImage()));
             p1card01.setGraphic(new ImageView(player1hand.getGameCards().get(1).getCardImage()));
+            p1card00.setVisible(true);
+            p1card00.setVisible(true);
         } else if (player1hand.getGameCards().size() == 0) {
             player1hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(1).getCarddeck().getGameCards()));
             p1card00.setGraphic(new ImageView(player1hand.getGameCards().get(0).getCardImage()));
+            p1card00.setVisible(true);
             p1card01.setVisible(false);
 
         } else {
@@ -263,25 +289,23 @@ public class GamePlayTableController {
         if(p2card00selected)
 
         {
-              p2card01.setDisable(false);
-              p1card00.setDisable(false);
-              p1card01.setDisable(false);
-              p1cardTableSlot00.setDisable(false);
-              p1cardTableSlot01.setDisable(false);
-              p1gup.setDisable(false);
-              p2gup.setDisable(false);
-              endturn.setDisable(false);
-              p2spec.setDisable(false);
-              p1spec.setDisable(false);
-              p1Deck.setDisable(false);
-              p2Deck.setDisable(false);
+             p2card01.setDisable(false);
+             p1cardTableSlot00.setDisable(false);
+             p1cardTableSlot01.setDisable(false);
+             p1gup.setDisable(false);
+             p2gup.setDisable(false);
+             endturn.setDisable(false);
+             p2spec.setDisable(false);
+             p1spec.setDisable(false);
+             p1Deck.setDisable(false);
+             p2Deck.setDisable(false);
+             p2cardTableSlot00.setDisable(false);
+             p2cardTableSlot01.setDisable(false);
 
         p2card00selected = false;
         } else
             {
              p2card01.setDisable(true);
-             p1card00.setDisable(true);
-             p1card01.setDisable(true);
              p1cardTableSlot00.setDisable(true);
              p1cardTableSlot01.setDisable(true);
              p1gup.setDisable(true);
@@ -291,22 +315,279 @@ public class GamePlayTableController {
              p1spec.setDisable(true);
              p1Deck.setDisable(true);
              p2Deck.setDisable(true);
-
              p2card00selected = true;
+             if(player2Table.getGameCards().isEmpty())
+             {
+                p2cardTableSlot01.setDisable(true);
+             }else if(player2Table.getGameCards().size() == 1)
+             {
+                 p2cardTableSlot00.setDisable(true);
+             }else
+             {
+                 p2cardTableSlot01.setDisable(true);
+                 p2cardTableSlot00.setDisable(true);
+                 Logger.info("Table is full");
+             }
+
             }
 
     }
-        public void p2card01Handler (ActionEvent actionEvent){
+    public void p2card01Handler (ActionEvent actionEvent)
+    {
+        if(p2card01selected)
+
+        {
+            p2card00.setDisable(false);
+            p1cardTableSlot00.setDisable(false);
+            p1cardTableSlot01.setDisable(false);
+            p1gup.setDisable(false);
+            p2gup.setDisable(false);
+            endturn.setDisable(false);
+            p2spec.setDisable(false);
+            p1spec.setDisable(false);
+            p1Deck.setDisable(false);
+            p2Deck.setDisable(false);
+
+            p2card01selected = false;
+            p2cardTableSlot01.setDisable(false);
+            p2cardTableSlot00.setDisable(false);
+        } else
+            {
+            p2card00.setDisable(true);
+            p1cardTableSlot00.setDisable(true);
+            p1cardTableSlot01.setDisable(true);
+            p1gup.setDisable(true);
+            p2gup.setDisable(true);
+            endturn.setDisable(true);
+            p2spec.setDisable(true);
+            p1spec.setDisable(true);
+            p1Deck.setDisable(true);
+            p2Deck.setDisable(true);
+
+
+            p2card01selected = true;
+                if(player2Table.getGameCards().isEmpty())
+                {
+                    p2cardTableSlot01.setDisable(true);
+                }else if(player2Table.getGameCards().size() == 1)
+                {
+                    p2cardTableSlot01.setDisable(true);
+                }else
+                {
+                    p2cardTableSlot00.setDisable(true);
+                    p2cardTableSlot01.setDisable(true);
+                    Logger.info("Table is full");
+                }
+            }
 
         }
 
-        public void p1card01Handler (ActionEvent actionEvent){
+      public void p1card01Handler (ActionEvent actionEvent)
+      {
+       if(p1card01selected)
+       {
+             p2card00.setDisable(false);
+             p1card00.setDisable(false);
+             p2card01.setDisable(false);
+             p2cardTableSlot00.setDisable(false);
+             p2cardTableSlot01.setDisable(false);
+             p1gup.setDisable(false);
+             p2gup.setDisable(false);
+             endturn.setDisable(false);
+             p2spec.setDisable(false);
+             p1spec.setDisable(false);
+             p1Deck.setDisable(false);
+             p2Deck.setDisable(false);
+
+             p1card01selected = false;
+       } else
+         {
+             p1card00.setDisable(true);
+             p2card00.setDisable(true);
+             p2card01.setDisable(true);
+             p2cardTableSlot00.setDisable(true);
+             p2cardTableSlot01.setDisable(true);
+             p1gup.setDisable(true);
+             p2gup.setDisable(true);
+             endturn.setDisable(true);
+             p2spec.setDisable(true);
+             p1spec.setDisable(true);
+             p1Deck.setDisable(true);
+             p2Deck.setDisable(true);
+
+             p1card01selected = true;
+         }
+
+      }
+
+       public void p1card00Handler (ActionEvent actionEvent)
+        {
+            if(p1card00selected)
+
+            {
+              p2card00.setDisable(false);
+              p1card01.setDisable(false);
+              p2card01.setDisable(false);
+              p2cardTableSlot00.setDisable(false);
+              p2cardTableSlot01.setDisable(false);
+              p1gup.setDisable(false);
+              p2gup.setDisable(false);
+              endturn.setDisable(false);
+              p2spec.setDisable(false);
+              p1spec.setDisable(false);
+              p1Deck.setDisable(false);
+              p2Deck.setDisable(false);
+
+              p1card00selected = false;
+            } else
+            {
+              p1card01.setDisable(true);
+              p2card00.setDisable(true);
+              p2card01.setDisable(true);
+              p2cardTableSlot00.setDisable(true);
+              p2cardTableSlot01.setDisable(true);
+              p1gup.setDisable(true);
+              p2gup.setDisable(true);
+              endturn.setDisable(true);
+              p2spec.setDisable(true);
+              p1spec.setDisable(true);
+              p1Deck.setDisable(true);
+              p2Deck.setDisable(true);
+
+              p1card00selected = true;
+            }
 
         }
 
-        public void p1card00Handler (ActionEvent actionEvent){
 
+
+    public void p2cardTableSlot00Handler(ActionEvent actionEvent) {
+
+        if (p2card00selected) {
+            GameCard card = getCardFromDeck(player2hand.getGameCards(),0);
+            player2Table.getGameCards().add(card);
+            p2cardTableSlot00.setGraphic(new ImageView(card.getCardImage()));
+            p2card00.setDisable(false);
+            p2card01.setDisable(false);
+            if(player2hand.getGameCards().size() == 1)
+            {
+                p2card01.setVisible(false);
+                p2card00.setGraphic(new ImageView(player2hand.getGameCards().get(0).getCardImage()));
+            }else if(player2hand.getGameCards().size() == 0)
+            {
+                p2card00.setVisible(false);
+                p2card01.setVisible(false);
+            }else
+            {
+                Logger.error("Problem");
+            }
+            p2card00selected = false;
+            p2cardTableSlot01.setDisable(false);
+            endturn.setDisable(false);
+            p2gup.setDisable(false);
+            p2spec.setDisable(false);
+        } else if (p2card01selected)
+            //p2card01 van kivalasztva ... ha az sincs kivalasztva akkor tamado helyzet van és megkell neznunk hogy azt a kartyat tamadjak vagy az a kartya tamad
+        {
+            GameCard card = getCardFromDeck(player2hand.getGameCards(),1);
+            player2Table.getGameCards().add(card);
+            p2cardTableSlot00.setGraphic(new ImageView(card.getCardImage()));
+            p2card00.setDisable(false);
+            p2card01.setDisable(false);
+            if(player2hand.getGameCards().size() == 1)
+            {
+                p2card00.setDisable(false);
+                p2card01.setVisible(false);
+                p2card00.setGraphic(new ImageView(player2hand.getGameCards().get(0).getCardImage()));
+            }else if(player2hand.getGameCards().size() == 0)
+            {
+                p2card00.setVisible(false);
+                p2card01.setVisible(false);
+            }else
+            {
+                Logger.error("Problem");
+            }
+            p2card01selected = false;
+            p2cardTableSlot01.setDisable(false);
+            endturn.setDisable(false);
+            p2gup.setDisable(false);
+            p2spec.setDisable(false);
+       }else
+        {
+            //TODO attack , def
         }
+
+
+    }
+
+    public void p2cardTableSlot01Handler(ActionEvent actionEvent) {
+        if (p2card00selected) {
+            GameCard card = getCardFromDeck(player2hand.getGameCards(),0);
+            player2Table.getGameCards().add(card);
+            p2cardTableSlot01.setGraphic(new ImageView(card.getCardImage()));
+            p2card00.setDisable(false);
+            p2card01.setDisable(false);
+            if(player2hand.getGameCards().size() == 1)
+            {
+                p2card01.setVisible(false);
+                p2card00.setGraphic(new ImageView(player2hand.getGameCards().get(0).getCardImage()));
+            }else if(player2hand.getGameCards().size() == 0)
+            {
+                p2card00.setVisible(false);
+                p2card01.setVisible(false);
+            }else
+            {
+                Logger.error("Problem");
+            }
+            p2card00selected = false;
+            p2cardTableSlot00.setDisable(false);
+            endturn.setDisable(false);
+            p2gup.setDisable(false);
+            p2spec.setDisable(false);
+        } else if (p2card01selected)
+        //p2card01 van kivalasztva ... ha az sincs kivalasztva akkor tamado helyzet van és megkell neznunk hogy azt a kartyat tamadjak vagy az a kartya tamad
+        {
+            GameCard card = getCardFromDeck(player2hand.getGameCards(),1);
+            player2Table.getGameCards().add(card);
+            p2cardTableSlot01.setGraphic(new ImageView(card.getCardImage()));
+            p2card00.setDisable(false);
+            p2card01.setDisable(false);
+            if(player2hand.getGameCards().size() == 1)
+            {
+                p2card00.setDisable(false);
+                p2card01.setVisible(false);
+                p2card00.setGraphic(new ImageView(player2hand.getGameCards().get(0).getCardImage()));
+            }else if(player2hand.getGameCards().size() == 0)
+            {
+                p2card00.setVisible(false);
+                p2card01.setVisible(false);
+            }else
+            {
+                Logger.error("Problem");
+            }
+            p2card01selected = false;
+            p2cardTableSlot00.setDisable(false);
+            endturn.setDisable(false);
+            p2gup.setDisable(false);
+            p2spec.setDisable(false);
+        }else
+        {
+            //TODO attack , def
+        }
+    }
+
+/* Ez akkor lesz ha majd tamadunk ->
+if(p2cardTableSlot00selected)
+            {
+                p2cardTableSlot00selected = false;
+            }else
+            {
+                GameCard card = getCardFromDeck(player2hand.getGameCards(),0);
+                p2cardTableSlot00.setGraphic(new ImageView(card.getCardImage()));
+                p2cardTableSlot00selected = true;
+
+            }
+           */
 }
 
     //p2card00.setGraphic(new ImageView(player2hand.getGameCards().get(0).getCardImage()));
