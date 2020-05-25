@@ -32,8 +32,8 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import lombok.Data;
 import org.apache.commons.lang.time.DurationFormatUtils;
-import org.checkerframework.checker.units.qual.A;
 import org.tinylog.Logger;
+import utillities.FileHelper;
 import xmlhelper.JAXBHelper;
 
 import javax.xml.bind.JAXBException;
@@ -66,17 +66,23 @@ public class GamePlayTableController {
     @FXML
     private Button endturn;
 
-    private CardDeck player1move, player2move;
     private CardDeck player1hand , player2hand;
     private CardDeck player1Table , player2Table;
-    //Booleans for button selected or not ( hand )
+
+    //TODO -> mindet beallitani false ertekre az initen belul
     private boolean p2card00selected , p2card01selected , p1card00selected , p1card01selected;
     private boolean p2cardTableSlot00selected , p2cardTableSlot01selected , p1cardTableSlot00selected, p1cardTableSlot01selected;
 
 
 
     @FXML
-    public void initialize() throws JAXBException {
+    public void initialize() throws JAXBException, IOException {
+
+
+        if(!FileHelper.doesSaveFileExist())
+        {
+            FileHelper.createSaveFile();
+        }
 
 
         start1 = System.currentTimeMillis();
@@ -145,11 +151,25 @@ public class GamePlayTableController {
         player2Table = new CardDeck(new ArrayList<>());
         player1Table = new CardDeck(new ArrayList<>());
 
-        player1move = new CardDeck(new ArrayList<>());
-        player2move = new CardDeck(new ArrayList<>());
 
     }
 
+
+    public void checkPlayerHealth()
+    {
+        if(GameData.getGamePlayer(0).getHealthpoint() <= 0)
+        {
+            endGame();
+        }else if(GameData.getGamePlayer(1).getHealthpoint() <= 0);
+        {
+            endGame();
+        }
+    }
+
+    private void endGame() {
+        boolean player1 = GameData.getGamePlayer(0).getHealthpoint() <= 0;
+        boolean player2 = GameData.getGamePlayer(1).getHealthpoint() <= 0;
+    }
 
     public void PlayerOneGupHandler(ActionEvent actionEvent) throws IOException {
 
@@ -189,7 +209,7 @@ public class GamePlayTableController {
             p1card00.setVisible(true);
             p2card01.setVisible(false);
             p1card01.setVisible(true);
-            // player 1 view of endturn
+
             if(player1hand.getGameCards().size() == 0)
             {
                 p1card00.setVisible(false);
@@ -583,7 +603,6 @@ public class GamePlayTableController {
         }
 
 
-
     public void p2cardTableSlot00Handler(ActionEvent actionEvent) {
 
         if (p2card00selected) {
@@ -666,8 +685,50 @@ public class GamePlayTableController {
             p2spec.setDisable(false);
        }else
         {
-            //TODO attack , def
+            //def
+          /*  if(p2cardTableSlot00selected)
+            {
+                int attack1,attack2;
+                int defense1,defense2;
+                int damage1,damage2;
+                GameCard card = getCardFromDeck(player1Table.getGameCards(),0);
+                attack1 = card.getCardAttackPoint();
+                System.out.println(card);
+                GameCard card2 = getCardFromDeck(player2Table.getGameCards(),0);
+                defense1 = card2.getCardDefensePoint();
+                damage1 = defense1 - attack1;
+                System.out.println(card2);
+                GameData.getGamePlayer(1).setHealthpoint(GameData.getGamePlayer(1).getHealthpoint() + damage1);
+                p1Lifepoints.setText(String.valueOf(GameData.getGamePlayer(0).getHealthpoint()));
+
+                attack2 = card2.getCardAttackPoint();
+                defense2 = card.getCardDefensePoint();
+                damage2 = defense2 - attack2;
+                GameData.getGamePlayer(0).setHealthpoint(GameData.getGamePlayer(0).getHealthpoint() + damage2);
+                p2Lifepoints.setText(String.valueOf(GameData.getGamePlayer(1).getHealthpoint()));
+
+
+                //levesszuk a szurkitest
+                p1gup.setDisable(false);
+                endturn.setDisable(false);
+                p1spec.setDisable(false);
+                p2card00.setDisable(false);
+                p2card01.setDisable(false);
+                p1cardTableSlot01.setDisable(false);
+                p1card00.setDisable(false);
+                p1card01.setDisable(false);
+
+
+                p1cardTableSlot00selected = false;
+
+                //
+            }else if(p2cardTableSlot01selected) {
+            }
+
+           */
         }
+
+
 
 
     }
@@ -730,6 +791,20 @@ public class GamePlayTableController {
             {
                 Logger.error("Problem");
             }
+            if(player1Table.getGameCards().size() == 0)
+            {
+                p1cardTableSlot00.setDisable(true);
+                p1cardTableSlot01.setDisable(true);
+            }else if(player1Table.getGameCards().size() == 1)
+            {
+                p1cardTableSlot00.setDisable(false);
+                p1cardTableSlot01.setDisable(true);
+            }else {
+                p1cardTableSlot00.setDisable(false);
+                p1cardTableSlot01.setDisable(false);
+            }
+
+
             p2card01selected = false;
             p2cardTableSlot00.setDisable(false);
             endturn.setDisable(false);
@@ -739,114 +814,6 @@ public class GamePlayTableController {
         {
             //TODO attack , def
         }
-    }
-
-    public void p1cardTableSlot00Handler(ActionEvent actionEvent) {
-        if (p1card00selected) {
-            GameCard card = getCardFromDeck(player1hand.getGameCards(),0);
-            player1Table.getGameCards().add(card);
-            p1cardTableSlot00.setGraphic(new ImageView(card.getCardImage()));
-            p1card00.setDisable(false);
-            p1card01.setDisable(false);
-
-            if(player1hand.getGameCards().size() == 1)
-            {
-                p1card01.setVisible(false);
-                p1card00.setGraphic(new ImageView(player1hand.getGameCards().get(0).getCardImage()));
-            }else if(player1hand.getGameCards().size() == 0)
-            {
-                p1card00.setVisible(false);
-                p1card01.setVisible(false);
-            }else
-            {
-                Logger.error("Problem");
-            }
-            // itt van az ujitas
-            if(player2Table.getGameCards().size() == 0)
-            {
-                p2cardTableSlot00.setDisable(true);
-                p2cardTableSlot01.setDisable(true);
-            }else if(player2Table.getGameCards().size() == 1)
-            {
-                p2cardTableSlot00.setDisable(false);
-                p2cardTableSlot01.setDisable(true);
-            }else
-            {
-                p2cardTableSlot00.setDisable(false);
-                p2cardTableSlot01.setDisable(false);
-            }
-
-            p1Deck.setDisable(true);
-            p1card00selected = false;
-            p1cardTableSlot01.setDisable(true);
-         //   p2cardTableSlot00.setDisable(false);
-         //   p2cardTableSlot01.setDisable(false);
-            endturn.setDisable(false);
-            p1gup.setDisable(false);
-            p1spec.setDisable(false);
-        } else if (p1card01selected)
-        //p2card01 van kivalasztva ... ha az sincs kivalasztva akkor tamado helyzet van és megkell neznunk hogy azt a kartyat tamadjak vagy az a kartya tamad
-        {
-            GameCard card = getCardFromDeck(player1hand.getGameCards(),1);
-            player1Table.getGameCards().add(card);
-            p1cardTableSlot00.setGraphic(new ImageView(card.getCardImage()));
-            p1card00.setDisable(false);
-            p1card01.setDisable(false);
-            if(player1hand.getGameCards().size() == 1)
-            {
-                p1card00.setDisable(false);
-                p1card01.setVisible(false);
-                p1card00.setGraphic(new ImageView(player1hand.getGameCards().get(0).getCardImage()));
-            }else if(player1hand.getGameCards().size() == 0)
-            {
-                p1card00.setVisible(false);
-                p1card01.setVisible(false);
-            }else
-            {
-                Logger.error("Problem");
-            }
-            p2cardTableSlot00.setDisable(false);
-            p2cardTableSlot01.setDisable(false);
-
-            p1card01selected = false;
-            // ide teszem legujabb
-            if(player1Table.getGameCards().size() == 0)
-            {
-                p1cardTableSlot00.setDisable(true);
-                p1cardTableSlot01.setDisable(true);
-            }else if(player1Table.getGameCards().size() == 1)
-            {
-                p1cardTableSlot00.setDisable(false);
-                p1cardTableSlot01.setDisable(true);
-            }else
-            {
-                p1cardTableSlot00.setDisable(false);
-                p1cardTableSlot00.setDisable(false);
-            }
-            // itt van az ujitas
-            if(player2Table.getGameCards().size() == 0)
-            {
-                p2cardTableSlot00.setDisable(true);
-                p2cardTableSlot01.setDisable(true);
-            }else if(player2Table.getGameCards().size() == 1)
-            {
-                p2cardTableSlot00.setDisable(false);
-                p2cardTableSlot01.setDisable(true);
-            }else
-            {
-                p2cardTableSlot00.setDisable(false);
-                p2cardTableSlot01.setDisable(false);
-            }
-
-            p1cardTableSlot01.setDisable(false);
-            endturn.setDisable(false);
-            p1gup.setDisable(false);
-            p1spec.setDisable(false);
-        }else
-        {
-            //TODO attack , def
-        }
-
     }
 
     public void p1cardTableSlot01Handler(ActionEvent actionEvent) {
@@ -939,25 +906,170 @@ public class GamePlayTableController {
         }
     }
 
+    public void p1cardTableSlot00Handler(ActionEvent actionEvent) {
+        if (p1card00selected) {
+            GameCard card = getCardFromDeck(player1hand.getGameCards(),0);
+            player1Table.getGameCards().add(card);
+            p1cardTableSlot00.setGraphic(new ImageView(card.getCardImage()));
+            p1card00.setDisable(false);
+            p1card01.setDisable(false);
 
- /*
-    private int attack ;
-    private int defense;
-    private int damage;
-    public void tesztelek ()
-    {
+            if(player1hand.getGameCards().size() == 1)
+            {
+                p1card01.setVisible(false);
+                p1card00.setGraphic(new ImageView(player1hand.getGameCards().get(0).getCardImage()));
+            }else if(player1hand.getGameCards().size() == 0)
+            {
+                p1card00.setVisible(false);
+                p1card01.setVisible(false);
+            }else
+            {
+                Logger.error("Problem");
+            }
+            if(player2Table.getGameCards().size() == 0)
+            {
+                p2cardTableSlot00.setDisable(true);
+                p2cardTableSlot01.setDisable(true);
+            }else if(player2Table.getGameCards().size() == 1)
+            {
+                p2cardTableSlot00.setDisable(false);
+                p2cardTableSlot01.setDisable(true);
+            }else
+            {
+                p2cardTableSlot00.setDisable(false);
+                p2cardTableSlot01.setDisable(false);
+            }
 
-        GameCard card = getCardFromDeck(player1Table.getGameCards(),0);
-        player1move.getGameCards().add(card);
-        attack = card.getCardAttackPoint();
-        GameCard card2 = getCardFromDeck(player2Table.getGameCards(),0);
-        player2move.getGameCards().add(card);
-        defense = card.getCardDefensePoint();
-        damage = defense - attack;
+            p1Deck.setDisable(true);
+
+            p1card00selected = false;
+
+            p1cardTableSlot01.setDisable(true);
+            endturn.setDisable(false);
+            p1gup.setDisable(false);
+            p1spec.setDisable(false);
+
+        } else if (p1card01selected)
+        {
+            GameCard card = getCardFromDeck(player1hand.getGameCards(),1);
+            player1Table.getGameCards().add(card);
+            p1cardTableSlot00.setGraphic(new ImageView(card.getCardImage()));
+            p1card00.setDisable(false);
+            p1card01.setDisable(false);
+            if(player1hand.getGameCards().size() == 1)
+            {
+                p1card00.setDisable(false);
+                p1card01.setVisible(false);
+                p1card00.setGraphic(new ImageView(player1hand.getGameCards().get(0).getCardImage()));
+            }else if(player1hand.getGameCards().size() == 0)
+            {
+                p1card00.setVisible(false);
+                p1card01.setVisible(false);
+            }else
+            {
+                Logger.error("Problem");
+            }
+            p2cardTableSlot00.setDisable(false);
+            p2cardTableSlot01.setDisable(false);
+
+            p1card01selected = false;
+
+            if(player1Table.getGameCards().size() == 0)
+            {
+                p1cardTableSlot00.setDisable(true);
+                p1cardTableSlot01.setDisable(true);
+            }else if(player1Table.getGameCards().size() == 1)
+            {
+                p1cardTableSlot00.setDisable(false);
+                p1cardTableSlot01.setDisable(true);
+            }else
+            {
+                p1cardTableSlot00.setDisable(false);
+                p1cardTableSlot00.setDisable(false);
+            }
+            if(player2Table.getGameCards().size() == 0)
+            {
+                p2cardTableSlot00.setDisable(true);
+                p2cardTableSlot01.setDisable(true);
+            }else if(player2Table.getGameCards().size() == 1)
+            {
+                p2cardTableSlot00.setDisable(false);
+                p2cardTableSlot01.setDisable(true);
+            }else
+            {
+                p2cardTableSlot00.setDisable(false);
+                p2cardTableSlot01.setDisable(false);
+            }
+
+            p1cardTableSlot01.setDisable(false);
+            endturn.setDisable(false);
+            p1gup.setDisable(false);
+            p1spec.setDisable(false);
+        }else
+        {
+            //tamadas if
+            if(!p1cardTableSlot00selected)
+            {
+
+                //megfelelo szurkites
+                p1gup.setDisable(true);
+                endturn.setDisable(true);
+                p1spec.setDisable(true);
+                p1Deck.setDisable(true);
+                p2card00.setDisable(true);
+                p2card01.setDisable(true);
+                p1cardTableSlot01.setDisable(true);
+                p1card00.setDisable(true);
+                p1card01.setDisable(true);
+
+
+                p1cardTableSlot00selected = true;
+            }else
+            {
+                // megfelelo szurkites
+                p1gup.setDisable(false);
+                endturn.setDisable(false);
+                p1spec.setDisable(false);
+                p2card00.setDisable(false);
+                p2card01.setDisable(false);
+                p1cardTableSlot01.setDisable(false);
+                p1card00.setDisable(false);
+                p1card01.setDisable(false);
+
+
+                p1cardTableSlot00selected = false;
+            }
+
+        }
 
     }
 
-  */
+
+   // private int attack ;
+   // private int defense;
+  //  private int damage;
+
+    public void tesztelek ()
+    {
+        int attack1,attack2;
+        int defense1,defense2;
+        int damage1,damage2;
+
+        GameCard card = getCardFromDeck(player1Table.getGameCards(),0);
+        attack1 = card.getCardAttackPoint();
+        GameCard card2 = getCardFromDeck(player2Table.getGameCards(),0);
+        defense1 = card2.getCardDefensePoint();
+        damage1 = defense1 - attack1;
+        GameData.getGamePlayer(0).setHealthpoint(GameData.getGamePlayer(0).getHealthpoint() + damage1);
+        p2Lifepoints.setText(String.valueOf(GameData.getGamePlayer(0).getHealthpoint()));
+
+        attack2 = card2.getCardAttackPoint();
+        defense2 = card.getCardDefensePoint();
+        damage2 = defense2 - attack2;
+        GameData.getGamePlayer(1).setHealthpoint(GameData.getGamePlayer(1).getHealthpoint() + damage2);
+        p1Lifepoints.setText(String.valueOf(GameData.getGamePlayer(1).getHealthpoint()));
+    }
+
 
 /* Ez akkor lesz ha majd tamadunk ->
 if(p2cardTableSlot00selected)
