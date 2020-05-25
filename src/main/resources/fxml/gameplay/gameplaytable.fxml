@@ -47,7 +47,7 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <Button fx:id="p1Deck" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#p1DeckHandler" prefHeight="86.0" prefWidth="150.0">
+                  <Button fx:id="p1Deck" alignment="CENTER" contentDisplay="CENTER" minHeight="86.0" minWidth="150.0" mnemonicParsing="false" onAction="#p1DeckHandler" prefHeight="86.0" prefWidth="150.0">
                      <VBox.margin>
                         <Insets left="11.5" />
                      </VBox.margin>
@@ -88,8 +88,8 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="p1card00" alignment="CENTER" contentDisplay="CENTER" minHeight="86.0" minWidth="150.0" mnemonicParsing="false" prefHeight="86.0" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <Button fx:id="p1card01" alignment="CENTER" mnemonicParsing="false" prefHeight="86.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                  <Button fx:id="p1card00" alignment="CENTER" contentDisplay="CENTER" minHeight="86.0" minWidth="150.0" mnemonicParsing="false" onAction="#p1card00Handler" prefHeight="86.0" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Button fx:id="p1card01" alignment="CENTER" minHeight="86.0" minWidth="150.0" mnemonicParsing="false" onAction="#p1card01Handler" prefHeight="86.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                </children>
                <BorderPane.margin>
                   <Insets bottom="50.0" left="162.0" right="172.0" top="50.0" />
@@ -133,7 +133,7 @@
                         <Insets left="50.0" top="60.0" />
                      </VBox.margin>
                   </Text>
-                  <Button fx:id="p2Deck" mnemonicParsing="false" onAction="#p2DeckHandler" prefHeight="86.0" prefWidth="150.0">
+                  <Button fx:id="p2Deck" minWidth="150.0" mnemonicParsing="false" onAction="#p2DeckHandler" prefHeight="86.0" prefWidth="150.0">
                      <VBox.margin>
                         <Insets bottom="10.0" left="11.5" />
                      </VBox.margin>
@@ -174,8 +174,8 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="p2card00" mnemonicParsing="false" prefHeight="86.0" prefWidth="150.0" text="Button" GridPane.halignment="CENTER" />
-                  <Button fx:id="p2card01" mnemonicParsing="false" prefHeight="86.0" prefWidth="150.0" text="Button" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                  <Button fx:id="p2card00" minHeight="86.0" minWidth="150.0" mnemonicParsing="false" onAction="#p2card00Handler" prefHeight="86.0" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Button fx:id="p2card01" minHeight="86.0" minWidth="150.0" mnemonicParsing="false" onAction="#p2card01Handler" prefHeight="86.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                </children>
                <BorderPane.margin>
                   <Insets bottom="50.0" left="162.0" right="172.0" top="40.0" />
@@ -201,10 +201,10 @@
             <Insets bottom="50.0" left="200.0" right="200.0" top="50.0" />
          </BorderPane.margin>
          <children>
-            <Button mnemonicParsing="false" prefHeight="86.0" prefWidth="150.0" text="slot00" GridPane.halignment="CENTER" />
-            <Button mnemonicParsing="false" prefHeight="86.0" prefWidth="150.0" text="slot10" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="86.0" prefWidth="150.0" text="slot01" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-            <Button mnemonicParsing="false" prefHeight="86.0" prefWidth="150.0" text="slot11" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Button fx:id="p2cardTableSlot00" minHeight="86.0" minWidth="150.0" mnemonicParsing="false" onAction="#p2cardTableSlot00Handler" prefHeight="86.0" prefWidth="150.0" GridPane.halignment="CENTER" />
+            <Button fx:id="p1cardTableSlot00" minHeight="86.0" minWidth="150.0" mnemonicParsing="false" onAction="#p1cardTableSlot00Handler" prefHeight="86.0" prefWidth="150.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Button fx:id="p2cardTableSlot01" minHeight="86.0" minWidth="150.0" mnemonicParsing="false" onAction="#p2cardTableSlot01Handler" prefHeight="86.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <Button fx:id="p1cardTableSlot01" minHeight="86.0" minWidth="150.0" mnemonicParsing="false" onAction="#p1cardTableSlot01Handler" prefHeight="86.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </center>
