@@ -3,16 +3,12 @@ package gameplay;
 
 import gameplay.gamecards.CardDeck;
 
-import java.util.Random;
-
 public class GameData {
 
     private static GamePlayer[] players;
 
     private static int turn;
 
-
-// carddeck objektumom a gameplayeren belul ugye CardDeck típusú -> tehát a paramétere a setPlayers metoduson belül megadott érték lesz playerDeck1-2
     public static void setPLayers(String p1name, String p2name, CardDeck playerDeck1,CardDeck playerDeck2 , SpecialSkill specialplayer1 , SpecialSkill specialPlayer2 )
     {
         players = new GamePlayer[2];
@@ -29,6 +25,7 @@ public class GameData {
     {
         turn = a;
     }
+
     public static int getTurn()
     {
         return turn;
