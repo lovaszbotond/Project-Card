@@ -42,12 +42,10 @@ public class FileHelper {
             gameState = player1.getName() + " Won";
         }else
         {
-            gameState = player2.getName() + " Loose";
+            gameState = player2.getName() + " Lose";
         }
 
-        results.getResults().add(new Result(player1.getName(),player2.getName(), player1.getHealthpoint(),player2.getHealthpoint(),""));
-
-
+        results.getResults().add(new Result(player1.getName(),player2.getName(), player1.getHealthpoint(),player2.getHealthpoint(),gameState));
         OutputStream os = new FileOutputStream(saveFile);
         JAXBHelper.toXML(results, os);
         os.close();
@@ -63,17 +61,18 @@ public class FileHelper {
 
         String userHome = System.getProperty("user.home");
         String separator = File.separator;
-        String saveFilePath = userHome + separator + ".labyrinth" + separator + "savefile.xml";
+        String saveFilePath = userHome + separator + ".Project--Card" + separator + "result.xml";
         Logger.debug("Save file location: " + saveFilePath);
-
         File saveFile = new File(saveFilePath);
         return saveFile.exists();
     }
 
-    /**
-     * Creates save file.
+    /*
      * @throws {@link IOException} if any problem occurs opening the save file
      * @throws {@link JAXBException} if any problem occurs during serialization
+     */
+    /**
+     * Creates save file.
      * */
     public static void createSaveFile() throws IOException, JAXBException {
         Logger.info("Save file not found. Creating save file.");
