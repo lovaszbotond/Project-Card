@@ -15,11 +15,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Result {
-
     private String playerName1;
     private String playerName2;
     private int player1HealthPoint;
     private int player2HealthPoint;
     private String gameState;
-
 }
