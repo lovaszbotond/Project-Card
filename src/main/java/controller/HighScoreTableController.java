@@ -33,7 +33,7 @@ public class HighScoreTableController implements Initializable {
     /**
      * Responsible for the view of ResultTable and read the '.xml' where we can store the high scores.
      * @param location The path of '.xml' file
-     * @param resources 
+     * @param resources
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
