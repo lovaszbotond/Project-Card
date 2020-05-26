@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HighScoreTableController">
+   <top>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Results" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="5.0" top="15.0" />
+         </BorderPane.margin>
+      </Text>
+   </top>
+   <center>
+      <TableView fx:id="resultTable" prefHeight="290.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="playerName1" minWidth="110.0" prefWidth="75.0" text="Player1Name" />
+          <TableColumn fx:id="playerName2" minWidth="110.0" prefWidth="75.0" text="Player2Name" />
+            <TableColumn fx:id="player1HealthPoint" minWidth="110.0" prefWidth="75.0" text="Player1LifePoints" />
+            <TableColumn fx:id="player2HealthPoint" minWidth="110.0" prefWidth="75.0" text="Player2LifePoints" />
+            <TableColumn fx:id="gameState" minWidth="160.0" prefWidth="75.0" text="Game End " />
+        </columns>
+         <BorderPane.margin>
+            <Insets top="5.0" />
+         </BorderPane.margin>
+      </TableView>
+   </center>
+   <bottom>
+      <Button fx:id="backToMain" alignment="CENTER" mnemonicParsing="false" onAction="#backToMainHandler" text="Accept" textAlignment="CENTER" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="30.0" top="30.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
+</BorderPane>
