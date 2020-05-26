@@ -13,10 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.util.Duration;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,13 +22,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import lombok.Data;
-import org.apache.commons.lang.time.DurationFormatUtils;
 import org.tinylog.Logger;
 import utillities.FileHelper;
 import xmlhelper.JAXBHelper;
 
 import javax.xml.bind.JAXBException;
 
+/**
+ * This Class responsible for the whole control above of gameplay.
+ */
 @Data
 public class GamePlayTableController {
 
@@ -67,6 +65,11 @@ public class GamePlayTableController {
     private boolean p2card00selected, p2card01selected, p1card00selected, p1card01selected;
     private boolean p2cardTableSlot00selected, p2cardTableSlot01selected, p1cardTableSlot00selected, p1cardTableSlot01selected;
 
+    /**
+     * This method initialize the start state of the game thanks for javaFx.
+     * @throws JAXBException If something wrong with reading/creating the file.
+     * @throws IOException If the path of the file is wrong , or miss spelled '.xml' or wrong name of it.
+     */
     @FXML
     public void initialize() throws JAXBException, IOException {
 
@@ -74,43 +77,14 @@ public class GamePlayTableController {
             FileHelper.createSaveFile();
         }
 
-        start1 = System.currentTimeMillis();
-        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            long millisElapsed = System.currentTimeMillis() - start1;
-            p1timer.setText(DurationFormatUtils.formatDuration(millisElapsed, "mm:ss"));
-        }), new KeyFrame(Duration.seconds(1)));
-        clock.setCycleCount(Animation.INDEFINITE);
-        clock.play();
-
-        // TODO -> stop if end button is pressed , and set the player 1 timeline maximum value
-
-        start2 = System.currentTimeMillis();
-        Timeline clock2 = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            long millisElapsed = System.currentTimeMillis() - start2;
-            p2timer.setText(DurationFormatUtils.formatDuration(millisElapsed, "mm:ss"));
-        }), new KeyFrame(Duration.seconds(1)));
-        clock2.setCycleCount(Animation.INDEFINITE);
-        clock2.play();
-
-        // TODO -> stop if end button is pressed , and set the player 2 timeline maximum value
-
-        p2gup.setDisable(true);
-        p2gup.setDisable(true);
-        p2spec.setDisable(true);
-        p2card00.setVisible(false);
-        p2card01.setVisible(false);
-        p2Deck.setDisable(true);
-
-
         playeronenameslot.setText(GameData.getGamePlayer(0).getName());
         playertwonameslot.setText(GameData.getGamePlayer(1).getName());
 
         GameData.setTurn(1);
-        //special button
+
         p1Lifepoints.setText(String.valueOf(GameData.getGamePlayer(0).getHealthpoint()));
         p2Lifepoints.setText(String.valueOf(GameData.getGamePlayer(1).getHealthpoint()));
 
-        //set card 1 2
         CardDeck deck1 = JAXBHelper.fromXML(gameplay.gamecards.CardDeck.class, getClass().getClassLoader().getResourceAsStream("xml/deck1.xml"));
         CardDeck deck2 = JAXBHelper.fromXML(gameplay.gamecards.CardDeck.class, getClass().getClassLoader().getResourceAsStream("xml/deck2.xml"));
         Collections.shuffle(deck1.getGameCards());
@@ -128,12 +102,14 @@ public class GamePlayTableController {
         player1hand = new CardDeck(new ArrayList<>());
         player1hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(0).getCarddeck().getGameCards()));
         player1hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(0).getCarddeck().getGameCards()));
+
         p1card00.setGraphic(new ImageView(player1hand.getGameCards().get(0).getCardImage()));
         p1card01.setGraphic(new ImageView(player1hand.getGameCards().get(1).getCardImage()));
 
         player2hand = new CardDeck(new ArrayList<>());
         player2hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(1).getCarddeck().getGameCards()));
         player2hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(1).getCarddeck().getGameCards()));
+
         p2card00.setGraphic(new ImageView(player2hand.getGameCards().get(0).getCardImage()));
         p2card01.setGraphic(new ImageView(player2hand.getGameCards().get(1).getCardImage()));
 
@@ -142,12 +118,25 @@ public class GamePlayTableController {
 
         p2cardTableSlot00.setVisible(false);
         p2cardTableSlot01.setVisible(false);
+
         p1cardTableSlot00.setVisible(false);
         p1cardTableSlot01.setVisible(false);
 
+        p2gup.setDisable(true);
+        p2gup.setDisable(true);
 
+        p2spec.setDisable(true);
+
+        p2card00.setVisible(false);
+        p2card01.setVisible(false);
+
+        p2Deck.setDisable(true);
+        Logger.info("The game has started, {} start the game",GameData.getGamePlayer(0).getName());
     }
 
+    /**
+     * This method checks how many health point a player got.
+     */
     public void checkPlayerHealth() {
         if ((GameData.getGamePlayer(0).getHealthpoint()) <= 0) {
             Logger.info("{} health is {}",GameData.getGamePlayer(0).getName(),GameData.getGamePlayer(0).getHealthpoint() );
@@ -167,8 +156,13 @@ public class GamePlayTableController {
         }
     }
 
+    /**
+     * This method store infos from checkPlayerHealth method.
+     * @throws IOException if the '.xml' file does not exist.
+     */
     private void endGame() throws IOException {
         try {
+            Logger.info("We saved the actual state of the game, in main menu, you can check the scores if you push the HighScore button there.");
             FileHelper.savePlayerStats(GameData.getGamePlayer(0), GameData.getGamePlayer(1));
         } catch (IOException e) {
             e.printStackTrace();
@@ -184,6 +178,11 @@ public class GamePlayTableController {
         stage.show();
     }
 
+    /**
+     * Handle the player 1 give up button.
+     * @param actionEvent Player 1 give up the game.
+     * @throws IOException If something wrong with the path.
+     */
     public void PlayerOneGupHandler(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/gameplay/p1gup.fxml"));
         Parent root = fxmlLoader.load();
@@ -195,6 +194,11 @@ public class GamePlayTableController {
         Logger.info("Player one : {} want to give up.", GameData.getGamePlayer(0).getName());
     }
 
+    /**
+     * Handle the player 2 give up button.
+     * @param actionEvent Player 2 giva up the game.
+     * @throws IOException If something wrong with the path.
+     */
     public void PlayerTwoGupHandler(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/gameplay/p2gup.fxml"));
         Parent root = fxmlLoader.load();
@@ -205,6 +209,10 @@ public class GamePlayTableController {
         Logger.info("Player two : {} want to give up.", GameData.getGamePlayer(1).getName());
     }
 
+    /**
+     * Handle if the player would like to end the turn.
+     * @param mouseEvent Switch the turn.
+     */
     public void endTurnHandler(MouseEvent mouseEvent) {
         if (GameData.getTurn() == 0)
             {
@@ -356,32 +364,57 @@ public class GamePlayTableController {
         }
     }
 
+    /**
+     * Handle the special skill of player 1.
+     * @param actionEvent Player 1 use his special skill.
+     */
     public void p1specHandler(ActionEvent actionEvent) {
         GameData.getGamePlayer(0).setHealthpoint(GameData.getGamePlayer(0).getHealthpoint() + 10);
         p1Lifepoints.setText(String.valueOf(GameData.getGamePlayer(0).getHealthpoint()));
 
         gridp1.getChildren().remove(p1spec);
+        Logger.info("{} used an ability.",GameData.getGamePlayer(0).getName());
     }
 
+    /**
+     * Handle the special skill of player 2.
+     * @param actionEvent Player 2 use his special skill.
+     */
     public void p2specHandler(ActionEvent actionEvent) {
         GameData.getGamePlayer(1).setHealthpoint(GameData.getGamePlayer(1).getHealthpoint() + 10);
         p2Lifepoints.setText(String.valueOf(GameData.getGamePlayer(1).getHealthpoint()));
 
         gridp2.getChildren().remove(p2spec);
+        Logger.info("{} used an ability.",GameData.getGamePlayer(1).getName());
     }
 
+    /**
+     * This method helps us to get the first card from the list and remove the picked card from the list.
+     * @param deck CardDeck of player 1 or player 2.
+     * @return The card we picked.
+     */
     public static GameCard getTopCardFromDeck(List<GameCard> deck) {
         GameCard card = deck.get(0);
         deck.remove(0);
         return card;
     }
 
+    /**
+     * This method is almost the same like getTopCardFromDeck , but now we can choose which index we would like to get from the list.
+     * @param deck CardDeck of player 1 or player 2.
+     * @param index The position of card in the list.
+     * @return The car we picked.
+     */
     public static GameCard getCardFromDeck(List<GameCard> deck, int index) {
         GameCard card = deck.get(index);
         deck.remove(index);
         return card;
     }
 
+    /**
+     * Handle player 2 deck.
+     * @param actionEvent Pick 1 card from the deck , depends on how many card we got in it hands.
+     */
     public void p2DeckHandler(ActionEvent actionEvent) {
         if (player2hand.getGameCards().size() == 1) {
             player2hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(1).getCarddeck().getGameCards()));
@@ -392,6 +425,8 @@ public class GamePlayTableController {
             p2card01.setDisable(false);
 
             p2card00.setVisible(true);
+
+            Logger.info("{} drew a card.",GameData.getGamePlayer(1).getName());
         } else if (player2hand.getGameCards().size() == 0) {
             player2hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(1).getCarddeck().getGameCards()));
             p2card00.setGraphic(new ImageView(player2hand.getGameCards().get(0).getCardImage()));
@@ -401,6 +436,8 @@ public class GamePlayTableController {
             p2card00.setDisable(false);
 
             p2card01.setVisible(false);
+
+            Logger.info("{} drew a card.",GameData.getGamePlayer(1).getName());
         } else {
             Logger.info("Hand is full");
         }
@@ -410,6 +447,10 @@ public class GamePlayTableController {
         }
     }
 
+    /**
+     * Handle player 1 deck.
+     * @param actionEvent Pick 1 card from the deck , depends on how many card player 1 git in it hands.
+     */
     public void p1DeckHandler(ActionEvent actionEvent) {
         System.out.println(GameData.getGamePlayer(0).getCarddeck().getGameCards().size());
        if (player1hand.getGameCards().size() == 1) {
@@ -419,12 +460,16 @@ public class GamePlayTableController {
 
             p1card01.setVisible(true);
             p1card00.setVisible(true);
+
+           Logger.info("{} drew a card.",GameData.getGamePlayer(0).getName());
         } else if (player1hand.getGameCards().size() == 0) {
             player1hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(0).getCarddeck().getGameCards()));
             p1card00.setGraphic(new ImageView(player1hand.getGameCards().get(0).getCardImage()));
 
             p1card00.setVisible(true);
             p1card01.setVisible(false);
+
+           Logger.info("{} drew a card.",GameData.getGamePlayer(0).getName());
         } else {
             Logger.info("Hand is full");
         }
@@ -434,6 +479,10 @@ public class GamePlayTableController {
         }
     }
 
+    /**
+     * Handle the first card of player 2 hand.
+     * @param actionEvent Select the first card.
+     */
     public void p2card00Handler(ActionEvent actionEvent) {
         if (!p2card00selected) {
             p2card01.setDisable(true);
@@ -516,6 +565,10 @@ public class GamePlayTableController {
         }
     }
 
+    /**
+     * Handle the second card of player 2 hand.
+     * @param actionEvent Select the second card.
+     */
     public void p2card01Handler(ActionEvent actionEvent) {
         if (!p2card01selected) {
             p2card00.setDisable(true);
@@ -597,6 +650,10 @@ public class GamePlayTableController {
         }
     }
 
+    /**
+     * Handle the first card of player 1 hand.
+     * @param actionEvent Select the first card.
+     */
     public void p1card01Handler(ActionEvent actionEvent) {
         if (!p1card01selected) {
             p1card00.setDisable(true);
@@ -698,6 +755,10 @@ public class GamePlayTableController {
         }
     }
 
+    /**
+     * Handle the second card of player 1 hand.
+     * @param actionEvent Select the card.
+     */
     public void p1card00Handler(ActionEvent actionEvent) {
         if (!p1card00selected) {
             p1card01.setDisable(true);
@@ -798,6 +859,10 @@ public class GamePlayTableController {
         }
     }
 
+    /**
+     * Handle the first slot of player 2 on the table, and the attack/defense move.
+     * @param actionEvent Select the first slot.
+     */
     public void p2cardTableSlot00Handler(ActionEvent actionEvent) {
 
         if (p2card00selected) {
@@ -810,8 +875,8 @@ public class GamePlayTableController {
 
             if (player2hand.getGameCards().size() == 1) {
             p2card01.setVisible(false);
-            p2card00.setGraphic(new ImageView(player2hand.getGameCards().get(0).getCardImage()));
 
+            p2card00.setGraphic(new ImageView(player2hand.getGameCards().get(0).getCardImage()));
             } else if (player2hand.getGameCards().size() == 0) {
             p2card00.setVisible(false);
             p2card01.setVisible(false);
@@ -849,6 +914,7 @@ public class GamePlayTableController {
 
             p2spec.setDisable(false);
 
+            Logger.info("Player {} summoned a card.",GameData.getGamePlayer(1).getName());
         } else if (p2card01selected)
             {
             GameCard card = getCardFromDeck(player2hand.getGameCards(), 1);
@@ -897,6 +963,8 @@ public class GamePlayTableController {
 
             p2spec.setDisable(false);
 
+            Logger.info("Player {} summoned a card.",GameData.getGamePlayer(1).getName());
+
         } else {
             if (p1cardTableSlot00selected) {
                 int attack1, attack2;
@@ -935,6 +1003,7 @@ public class GamePlayTableController {
 
                 refreshTableGUI();
 
+                Logger.info("Players attack each other");
             } else if (p1cardTableSlot01selected) {
                 int attack1, attack2;
                 int defense1, defense2;
@@ -974,6 +1043,8 @@ public class GamePlayTableController {
                 p1cardTableSlot01selected = false;
 
                 refreshTableGUI();
+
+                Logger.info("Players attack each other");
             } else if (GameData.getTurn() == 0) {
                 if (!p2cardTableSlot00selected) {
                     p2gup.setDisable(true);
@@ -1010,6 +1081,10 @@ public class GamePlayTableController {
         checkPlayerHealth();
     }
 
+    /**
+     * Handle the second slot of player 2 on the table, and the attack/defense move.
+     * @param actionEvent Select the second slot.
+     */
     public void p2cardTableSlot01Handler(ActionEvent actionEvent) {
         if (p2card00selected) {
             GameCard card = getCardFromDeck(player2hand.getGameCards(), 0);
@@ -1052,6 +1127,8 @@ public class GamePlayTableController {
             p2gup.setDisable(false);
 
             p2spec.setDisable(false);
+
+            Logger.info("Player {} summoned a card.",GameData.getGamePlayer(1).getName());
         } else if (p2card01selected)
         {
             GameCard card = getCardFromDeck(player2hand.getGameCards(), 1);
@@ -1095,6 +1172,7 @@ public class GamePlayTableController {
             p2gup.setDisable(false);
 
             p2spec.setDisable(false);
+            Logger.info("Player {} summoned a card.",GameData.getGamePlayer(1).getName());
         } else {
             if (p1cardTableSlot00selected) {
                 int attack1, attack2;
@@ -1133,7 +1211,7 @@ public class GamePlayTableController {
                 p1cardTableSlot00selected = false;
 
                 refreshTableGUI();
-
+                Logger.info("Players attack each other");
             } else if (p1cardTableSlot01selected) {
                 int attack1, attack2;
                 int defense1, defense2;
@@ -1171,6 +1249,7 @@ public class GamePlayTableController {
                 p1cardTableSlot01selected = false;
 
                 refreshTableGUI();
+                Logger.info("Players attack each other");
 
             } else if (GameData.getTurn() == 0) {
                 if (!p2cardTableSlot01selected) {
@@ -1215,6 +1294,10 @@ public class GamePlayTableController {
         checkPlayerHealth();
     }
 
+    /**
+     * Handle the second slot of player 1 on the table, and the attack/defense move.
+     * @param actionEvent
+     */
     public void p1cardTableSlot01Handler(ActionEvent actionEvent) {
         if (p1card00selected) {
             GameCard card = getCardFromDeck(player1hand.getGameCards(), 0);
@@ -1260,6 +1343,8 @@ public class GamePlayTableController {
             p1gup.setDisable(false);
 
             p1spec.setDisable(false);
+
+            Logger.info("Player {} summoned a card.",GameData.getGamePlayer(0).getName());
         } else if (p1card01selected)
         {
             GameCard card = getCardFromDeck(player1hand.getGameCards(), 1);
@@ -1303,6 +1388,8 @@ public class GamePlayTableController {
             p1gup.setDisable(false);
 
             p1spec.setDisable(false);
+
+            Logger.info("Player {} summoned a card.",GameData.getGamePlayer(0).getName());
         } else {
 
             if (p2cardTableSlot00selected) {
@@ -1341,6 +1428,7 @@ public class GamePlayTableController {
                 p2cardTableSlot00selected = false;
 
                 refreshTableGUI();
+                Logger.info("Players attack each other");
 
             } else if (p2cardTableSlot01selected) {
                 int attack1, attack2;
@@ -1380,6 +1468,7 @@ public class GamePlayTableController {
                 p2cardTableSlot01selected = false;
 
                 refreshTableGUI();
+                Logger.info("Players attack each other");
             } else if (GameData.getTurn() == 1) {
                 if (!p1cardTableSlot01selected) {
                     p1gup.setDisable(true);
@@ -1421,6 +1510,10 @@ public class GamePlayTableController {
         checkPlayerHealth();
     }
 
+    /**
+     * Handle the first slot of player 1 on the table, and the attack/defense move.
+     * @param actionEvent
+     */
     public void p1cardTableSlot00Handler(ActionEvent actionEvent) {
         if (p1card00selected) {
             GameCard card = getCardFromDeck(player1hand.getGameCards(), 0);
@@ -1465,6 +1558,8 @@ public class GamePlayTableController {
             p1gup.setDisable(false);
 
             p1spec.setDisable(false);
+
+            Logger.info("Player {} summoned a card.",GameData.getGamePlayer(0).getName());
         } else if (p1card01selected) {
             GameCard card = getCardFromDeck(player1hand.getGameCards(), 1);
             player1Table.getGameCards().add(card);
@@ -1523,6 +1618,8 @@ public class GamePlayTableController {
             p1gup.setDisable(false);
 
             p1spec.setDisable(false);
+
+            Logger.info("Player {} summoned a card.",GameData.getGamePlayer(0).getName());
         } else {
             if (p2cardTableSlot00selected) {
                 int attack1, attack2;
@@ -1562,7 +1659,7 @@ public class GamePlayTableController {
                 p2cardTableSlot00selected = false;
 
                 refreshTableGUI();
-
+                Logger.info("Players attack each other");
 
             } else if (p2cardTableSlot01selected) {
                 int attack1, attack2;
@@ -1601,6 +1698,7 @@ public class GamePlayTableController {
                 p2cardTableSlot01selected = false;
 
                 refreshTableGUI();
+                Logger.info("Players attack each other");
             } else if (GameData.getTurn() == 1) {
                 if (!p1cardTableSlot00selected) {
                     p1gup.setDisable(true);
@@ -1643,6 +1741,11 @@ public class GamePlayTableController {
         checkPlayerHealth();
     }
 
+    /**
+     * This method helps us to refresh the Graphic View of the table after one attack.
+     * Checks if player 1 table is empty , or got 1 card on it or 2 card on it.
+     * Checks if player 2 table is empty , or got 1 card on it or 2 card on it.
+     */
     private void refreshTableGUI() {
         if (player1Table.getGameCards().size() == 0) {
             p1cardTableSlot00.setGraphic(null);
