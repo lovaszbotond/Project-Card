@@ -21,7 +21,7 @@
       </Text>
    </top>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="87.0" prefWidth="262.0" BorderPane.alignment="CENTER">
          <children>
             <TextField id="p1field" fx:id="p1Field" prefHeight="25.0" prefWidth="255.0" stylesheets="@mainmenu.css">
                <VBox.margin>
@@ -54,19 +54,19 @@
             </Label>
             <Text id="p1" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Player one:">
                <VBox.margin>
-                  <Insets left="160.0" top="44.0" />
+                  <Insets left="160.0" top="30.0" />
                </VBox.margin>
             </Text>
             <Text id="p2" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Player two:">
                <VBox.margin>
-                  <Insets left="160.0" right="10.0" top="29.0" />
+                  <Insets left="160.0" right="10.0" top="33.0" />
                </VBox.margin>
             </Text>
          </children>
       </VBox>
    </left>
    <bottom>
-      <BorderPane prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <BorderPane prefHeight="71.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
@@ -91,6 +91,9 @@
                </BorderPane.margin>
             </Button>
          </left>
+         <bottom>
+            <Button fx:id="highScore" mnemonicParsing="false" onAction="#highScoreHandler" text="HighScores" BorderPane.alignment="CENTER" />
+         </bottom>
       </BorderPane>
    </bottom>
 </BorderPane>
