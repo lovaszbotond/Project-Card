@@ -384,11 +384,7 @@ public class GamePlayTableController {
     }
 
     public void p2DeckHandler(ActionEvent actionEvent) {
-        if (GameData.getGamePlayer(1).getCarddeck().getGameCards().isEmpty()) {
-            p2Deck.setVisible(false);
-            Logger.info("Deck is empty");
-
-        } else if (player2hand.getGameCards().size() == 1) {
+        if (player2hand.getGameCards().size() == 1) {
             player2hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(1).getCarddeck().getGameCards()));
             p2card00.setGraphic(new ImageView(player2hand.getGameCards().get(0).getCardImage()));
             p2card01.setGraphic(new ImageView(player2hand.getGameCards().get(1).getCardImage()));
@@ -417,10 +413,7 @@ public class GamePlayTableController {
 
     public void p1DeckHandler(ActionEvent actionEvent) {
         System.out.println(GameData.getGamePlayer(0).getCarddeck().getGameCards().size());
-        if (GameData.getGamePlayer(0).getCarddeck().getGameCards().isEmpty()) {
-            p1Deck.setVisible(false);
-            Logger.info("Deck is empty");
-        } else if (player1hand.getGameCards().size() == 1) {
+       if (player1hand.getGameCards().size() == 1) {
             player1hand.getGameCards().add(getTopCardFromDeck(GameData.getGamePlayer(0).getCarddeck().getGameCards()));
             p1card00.setGraphic(new ImageView(player1hand.getGameCards().get(0).getCardImage()));
             p1card01.setGraphic(new ImageView(player1hand.getGameCards().get(1).getCardImage()));
@@ -725,7 +718,6 @@ public class GamePlayTableController {
             p2Deck.setDisable(true);
 
             p1card00selected = true;
-            //player 1 table
             if (player1Table.getGameCards().isEmpty()) {
                 p1cardTableSlot00.setDisable(false);
                 p1cardTableSlot00.setVisible(true);
@@ -746,8 +738,6 @@ public class GamePlayTableController {
                 p1cardTableSlot01.setDisable(true);
                 Logger.info("Table is full");
             }
-
-
         } else {
             p1card01.setDisable(false);
 
@@ -764,7 +754,6 @@ public class GamePlayTableController {
 
             p1Deck.setDisable(true);
             p2Deck.setDisable(true);
-            //player 1 table
             if (player1Table.getGameCards().isEmpty()) {
                 p1cardTableSlot00.setDisable(false);
                 p1cardTableSlot00.setVisible(false);
@@ -830,7 +819,6 @@ public class GamePlayTableController {
             } else {
             Logger.error("Negative card in hand");
             }
-            //player 1 table check when p2lefthand selected
             if (player1Table.getGameCards().size() == 0) {
             p1cardTableSlot00.setDisable(true);
             p1cardTableSlot00.setVisible(false);
@@ -968,7 +956,6 @@ public class GamePlayTableController {
                 GameData.getGamePlayer(0).setHealthpoint(GameData.getGamePlayer(0).getHealthpoint() + damage2);
                 p1Lifepoints.setText(String.valueOf(GameData.getGamePlayer(0).getHealthpoint()));
 
-                //levesszuk a szurkitest
                 p1gup.setDisable(false);
 
                 endturn.setDisable(false);
@@ -989,8 +976,6 @@ public class GamePlayTableController {
                 refreshTableGUI();
             } else if (GameData.getTurn() == 0) {
                 if (!p2cardTableSlot00selected) {
-                    System.out.println("asd");
-                    //megfelelo szurkites
                     p2gup.setDisable(true);
                     endturn.setDisable(true);
                     p2spec.setDisable(true);
@@ -1005,9 +990,7 @@ public class GamePlayTableController {
                     p2card01.setDisable(true);
 
                     p2cardTableSlot00selected = true;
-
                 } else {
-                    // megfelelo szurkites
                     p2gup.setDisable(false);
                     endturn.setDisable(false);
                     p2spec.setDisable(false);
