@@ -97,4 +97,13 @@ public class MainMenuController {
         stage.setTitle("Exit");
         stage.show();
     }
+
+    public void highScoreHandler(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/mainmenu/result.fxml"));
+        Parent root = fxmlLoader.load();
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Results");
+        stage.show();
+    }
 }
