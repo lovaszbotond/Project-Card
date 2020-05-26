@@ -1296,7 +1296,7 @@ public class GamePlayTableController {
 
     /**
      * Handle the second slot of player 1 on the table, and the attack/defense move.
-     * @param actionEvent
+     * @param actionEvent Select the second slot.
      */
     public void p1cardTableSlot01Handler(ActionEvent actionEvent) {
         if (p1card00selected) {
@@ -1512,7 +1512,7 @@ public class GamePlayTableController {
 
     /**
      * Handle the first slot of player 1 on the table, and the attack/defense move.
-     * @param actionEvent
+     * @param actionEvent Select the first slot.
      */
     public void p1cardTableSlot00Handler(ActionEvent actionEvent) {
         if (p1card00selected) {
