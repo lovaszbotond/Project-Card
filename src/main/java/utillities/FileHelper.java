@@ -1,7 +1,5 @@
 package utillities;
 
-
-import gameplay.GameData;
 import gameplay.GamePlayer;
 import org.tinylog.Logger;
 import result.Result;
@@ -11,13 +9,17 @@ import xmlhelper.JAXBHelper;
 import javax.xml.bind.JAXBException;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Class for handling file operations.
  * */
 public class FileHelper {
-
+    /**
+     * @param player1 Name of player 1.
+     * @param player2 Name if player 2.
+     * @throws IOException If there is something wrong during the file open procedure.
+     * @throws JAXBException If something wrong with reading the file.
+     */
     public static void savePlayerStats(GamePlayer player1, GamePlayer player2) throws IOException, JAXBException {
         String userHome = System.getProperty("user.home");
         String separator = File.separator;
@@ -53,7 +55,7 @@ public class FileHelper {
 
     /**
      * Checks for existing save file in the file system.
-     * @return Whether the save file exists
+     * @return Is the file exist or not
      * */
     public static boolean doesSaveFileExist()
     {
@@ -67,12 +69,10 @@ public class FileHelper {
         return saveFile.exists();
     }
 
-    /*
-     * @throws {@link IOException} if any problem occurs opening the save file
-     * @throws {@link JAXBException} if any problem occurs during serialization
-     */
     /**
      * Creates save file.
+     * @throws IOException If any problem occurs opening the save file.
+     * @throws JAXBException If any problem occurs during serialization.
      * */
     public static void createSaveFile() throws IOException, JAXBException {
         Logger.info("Save file not found. Creating save file.");

@@ -8,6 +8,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import java.util.List;
 
+/**
+ * This Class represent the object of a CardDeck.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @XmlRootElement

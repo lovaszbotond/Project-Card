@@ -9,7 +9,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 
 import lombok.*;
 
-
+/**
+ * Class describe/represents a card from the deck.
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
 @NoArgsConstructor

@@ -92,13 +92,15 @@ public class GamePlayTableController {
         clock2.setCycleCount(Animation.INDEFINITE);
         clock2.play();
 
+        // TODO -> stop if end button is pressed , and set the player 2 timeline maximum value
+
         p2gup.setDisable(true);
         p2gup.setDisable(true);
         p2spec.setDisable(true);
         p2card00.setVisible(false);
         p2card01.setVisible(false);
         p2Deck.setDisable(true);
-        // TODO -> stop if end button is pressed , and set the player 2 timeline maximum value
+
 
         playeronenameslot.setText(GameData.getGamePlayer(0).getName());
         playertwonameslot.setText(GameData.getGamePlayer(1).getName());
@@ -367,10 +369,7 @@ public class GamePlayTableController {
 
         gridp2.getChildren().remove(p2spec);
     }
-    /**
-     * aasfdsfhgfhds.
-     * @return asd
-     * */
+
     public static GameCard getTopCardFromDeck(List<GameCard> deck) {
         GameCard card = deck.get(0);
         deck.remove(0);
@@ -940,6 +939,7 @@ public class GamePlayTableController {
                 int attack1, attack2;
                 int defense1, defense2;
                 int damage1, damage2;
+
                 GameCard card = getCardFromDeck(player1Table.getGameCards(), 1);
                 attack1 = card.getCardAttackPoint();
                 System.out.println(card);

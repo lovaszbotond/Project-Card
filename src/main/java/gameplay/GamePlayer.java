@@ -4,6 +4,9 @@ import gameplay.gamecards.CardDeck;
 import lombok.Builder;
 import lombok.Data;
 
+/**
+ * This Class describe/represents a specific player from the game.
+ */
 @Builder
 @Data
 public class GamePlayer {
@@ -14,6 +17,4 @@ public class GamePlayer {
     private CardDeck carddeck;
 
     private SpecialSkill special;
-
-
 }

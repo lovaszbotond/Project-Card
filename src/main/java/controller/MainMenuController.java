@@ -14,9 +14,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.tinylog.Logger;
 
-
+/**
+ * This Class represents the main menu Graphical User Interface(GUI).
+ */
 public class MainMenuController {
-
 
     @FXML
     private TextField p1Field;
@@ -27,7 +28,11 @@ public class MainMenuController {
     @FXML
     private  Label p2Error;
 
-
+    /**
+     * Handle the rule button.
+     * @param actionEvent Player can check the rules of the game.
+     * @throws IOException If the ".fxml" file does not exist or miss spelled.
+     */
     @FXML
     public void ruleHandler(javafx.event.ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/mainmenu/rulebox.fxml"));
@@ -38,6 +43,12 @@ public class MainMenuController {
         stage.show();
         Logger.info("The users are check the rules.");
     }
+
+    /**
+     * Handle the start button and check the TextFields if they are empty or not.
+     * @param actionEvent Players start the game.
+     * @throws IOException If the ".fxml" file does not exist or miss spelled.
+     */
     @FXML
     public void startHandler(ActionEvent actionEvent) throws IOException {
         if (p1Field.getText().isEmpty())
@@ -71,6 +82,12 @@ public class MainMenuController {
             Logger.info("Everything looks good , let start the duel and have fun!");
         }
     }
+
+    /**
+     * Handle the exit button.
+     * @param actionEvent User quit from the game
+     * @throws IOException If the ".fxml" file does not exist or miss spelled.
+     */
     @FXML
     public void exitHandler(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/mainmenu/exitquestion.fxml"));
