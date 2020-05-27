@@ -51,16 +51,14 @@ public class HighScoreTableController implements Initializable {
             InputStream is = new FileInputStream(saveFile);
             Results results = JAXBHelper.fromXML(Results.class, is);
 
-            //mely oszlo alapjan , mit szedjen össze
             playerName1.setCellValueFactory(new PropertyValueFactory<>("playerName1"));
             playerName2.setCellValueFactory(new PropertyValueFactory<>("playerName2"));
             player1HealthPoint.setCellValueFactory(new PropertyValueFactory<>("player1HealthPoint"));
             player2HealthPoint.setCellValueFactory(new PropertyValueFactory<>("player2HealthPoint"));
             gameState.setCellValueFactory(new PropertyValueFactory<>("gameState"));
 
-            resultTable.getColumns().addAll(playerName1,playerName2,player1HealthPoint,player2HealthPoint,gameState);
+            resultTable.getColumns().setAll(playerName1,playerName2,player1HealthPoint,player2HealthPoint,gameState);
 
-            //beletoljuk a tömbbe
             for(Result result : results.getResults())
             {
                 resultTable.getItems().add(result);
@@ -73,8 +71,8 @@ public class HighScoreTableController implements Initializable {
 
     /**
      * Handle Accept button.
-     * @param actionEvent Navigate the user to tha main menu.
-     * @throws IOException If the file not exist or miss spelled.
+     * @param actionEvent Navigate the user to the main menu.
+     * @throws IOException If the file does not exist or misspelled.
      */
     public void backToMainHandler(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/mainmenu/mainmenu.fxml"));

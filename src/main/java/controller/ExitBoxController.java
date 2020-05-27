@@ -10,7 +10,7 @@ import org.tinylog.Logger;
 
 import java.io.IOException;
 /**
- * This Class is an handler if the user/users would like to quit from the game or not.
+ * This Class is a controller, if the user/users would like to quit from the game or not.
  **/
 public class ExitBoxController {
     /**
@@ -24,7 +24,7 @@ public class ExitBoxController {
 
     /**
      * @param actionEvent If the player choose no , we return to the main menu.
-     * @throws IOException if the ".xml" file does not exist or miss spelled.
+     * @throws IOException if the ".xml" file does not exist or misspelled.
      */
     public void noexithandler(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/mainmenu/mainmenu.fxml"));

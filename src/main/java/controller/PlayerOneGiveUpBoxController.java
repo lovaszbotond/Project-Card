@@ -14,7 +14,7 @@ import org.tinylog.Logger;
 import java.io.IOException;
 
 /**
- * This Class checks if player1 give up the game.
+ * This Class checks if player1 gave up the game.
  */
 @Data
 public class PlayerOneGiveUpBoxController {
@@ -34,7 +34,7 @@ public class PlayerOneGiveUpBoxController {
     /**
      * User can choose the Accept button.
      * @param actionEvent Player will return to the main menu.
-     * @throws IOException If the ".fxml" file does not exist or miss spelled.
+     * @throws IOException If the ".fxml" file does not exist or misspelled.
      */
     public void acceptHandler(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/mainmenu/mainmenu.fxml"));

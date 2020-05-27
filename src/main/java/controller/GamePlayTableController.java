@@ -62,7 +62,7 @@ public class GamePlayTableController {
     /**
      * This method initialize the start state of the game thanks for javaFx.
      * @throws JAXBException If something wrong with reading/creating the file.
-     * @throws IOException If the path of the file is wrong , or miss spelled '.xml' or wrong name of it.
+     * @throws IOException If the path of the file is wrong , or misspelled '.xml' or wrong name of it.
      */
     @FXML
     public void initialize() throws JAXBException, IOException {
@@ -363,9 +363,8 @@ public class GamePlayTableController {
      * @param actionEvent Player 1 use his special skill.
      */
     public void p1specHandler(ActionEvent actionEvent) {
-        GameData.getGamePlayer(0).setHealthpoint(GameData.getGamePlayer(0).getHealthpoint() + 10);
+        GameData.getGamePlayer(0).useSpecial();
         p1Lifepoints.setText(String.valueOf(GameData.getGamePlayer(0).getHealthpoint()));
-
         gridp1.getChildren().remove(p1spec);
         Logger.info("{} used an ability.",GameData.getGamePlayer(0).getName());
     }
@@ -375,7 +374,7 @@ public class GamePlayTableController {
      * @param actionEvent Player 2 use his special skill.
      */
     public void p2specHandler(ActionEvent actionEvent) {
-        GameData.getGamePlayer(1).setHealthpoint(GameData.getGamePlayer(1).getHealthpoint() + 10);
+        GameData.getGamePlayer(1).useSpecial();
         p2Lifepoints.setText(String.valueOf(GameData.getGamePlayer(1).getHealthpoint()));
 
         gridp2.getChildren().remove(p2spec);

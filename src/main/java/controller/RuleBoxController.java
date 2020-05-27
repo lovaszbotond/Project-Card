@@ -19,7 +19,7 @@ public class RuleBoxController {
     /**
      * The user can check the rules if he push the rule button.
      * @param actionEvent User get back the main menu scene.
-     * @throws IOException if the ".fxml" file does not exist or miss spelled.
+     * @throws IOException if the ".fxml" file does not exist or misspelled.
      */
     public void acceptHandler(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/mainmenu/mainmenu.fxml"));

@@ -35,7 +35,7 @@ public class PlayerTwoGiveUpBoxController {
     /**
      * User can choose the Accept button.
      * @param actionEvent Player will return to the main menu.
-     * @throws IOException If the ".fxml" file does not exist or miss spelled.
+     * @throws IOException If the ".fxml" file does not exist or misspelled.
      */
     public void acceptHandler(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/mainmenu/mainmenu.fxml"));

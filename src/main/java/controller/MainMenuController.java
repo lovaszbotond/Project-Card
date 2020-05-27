@@ -31,7 +31,7 @@ public class MainMenuController {
     /**
      * Handle the rule button.
      * @param actionEvent Player can check the rules of the game.
-     * @throws IOException If the ".fxml" file does not exist or miss spelled.
+     * @throws IOException If the ".fxml" file does not exist or misspelled.
      */
     @FXML
     public void ruleHandler(javafx.event.ActionEvent actionEvent) throws IOException {
@@ -47,7 +47,7 @@ public class MainMenuController {
     /**
      * Handle the start button and check the TextFields if they are empty or not.
      * @param actionEvent Players start the game.
-     * @throws IOException If the ".fxml" file does not exist or miss spelled.
+     * @throws IOException If the ".fxml" file does not exist or misspelled.
      */
     @FXML
     public void startHandler(ActionEvent actionEvent) throws IOException {
@@ -72,7 +72,7 @@ public class MainMenuController {
         if (!p1Field.getText().isEmpty() && !p2Field.getText().isEmpty())
         {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/gameplay/gameplaytable.fxml"));
-            GameData.setPLayers(p1Field.getText(),p2Field.getText(),null,null,null,null);
+            GameData.setPLayers(p1Field.getText(),p2Field.getText(),null,null);
             Parent root = fxmlLoader.load();
             Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -86,7 +86,7 @@ public class MainMenuController {
     /**
      * Handle the exit button.
      * @param actionEvent User quit from the game
-     * @throws IOException If the ".fxml" file does not exist or miss spelled.
+     * @throws IOException If the ".fxml" file does not exist or misspelled.
      */
     @FXML
     public void exitHandler(ActionEvent actionEvent) throws IOException {
@@ -102,7 +102,7 @@ public class MainMenuController {
     /**
      * Handle the HighScore button.
      * @param actionEvent User select the HighScore button and check the resultTable.
-     * @throws IOException If the path is wrong or miss spelled the '.xml' file or not exist.
+     * @throws IOException If the path is wrong or misspelled the '.xml' file or does not exist.
      */
     @FXML
     public void highScoreHandler(ActionEvent actionEvent) throws IOException {

@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
 /**
- * Data class that represents {@code HighScore} objects stored in the save file.
+ * Data class that represents Result objects stored in the save file.
  * */
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
