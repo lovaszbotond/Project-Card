@@ -47,11 +47,17 @@
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
+               <effect>
+                  <DropShadow color="#f80000" height="178.15" radius="97.47" spread="0.97" width="213.73" />
+               </effect>
             </Label>
             <Label id="p1error" fx:id="p2Error">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
+               <effect>
+                  <DropShadow color="#f80000" height="195.94" radius="101.91749999999999" spread="0.56" width="213.73" />
+               </effect>
             </Label>
             <Text id="p1" fill="WHITE" nodeOrientation="LEFT_TO_RIGHT" strokeType="OUTSIDE" strokeWidth="0.0" text="Player one:">
                <VBox.margin>
