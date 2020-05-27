@@ -34,13 +34,13 @@
       </Text>
    </top>
    <center>
-      <TableView fx:id="resultTable" prefHeight="205.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <TableView id="tableview" fx:id="resultTable" prefHeight="205.0" prefWidth="600.0" stylesheets="@result.css" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="playerName1" minWidth="110.0" prefWidth="75.0" text="Player1Name" />
-          <TableColumn fx:id="playerName2" minWidth="110.0" prefWidth="75.0" text="Player2Name" />
-            <TableColumn fx:id="player1HealthPoint" minWidth="110.0" prefWidth="75.0" text="Player1LifePoints" />
-            <TableColumn fx:id="player2HealthPoint" minWidth="110.0" prefWidth="75.0" text="Player2LifePoints" />
-            <TableColumn fx:id="gameState" minWidth="160.0" prefWidth="75.0" text="Game End " />
+          <TableColumn id="col1" fx:id="playerName1" minWidth="110.0" prefWidth="75.0" style="-fx-background-color: black; -fx-text-fill: blue;" text="Player1Name" />
+          <TableColumn fx:id="playerName2" minWidth="110.0" prefWidth="75.0" style="-fx-background-color: black; -fx-text-fill: blue;" text="Player2Name" />
+            <TableColumn fx:id="player1HealthPoint" minWidth="110.0" prefWidth="75.0" style="-fx-background-color: black; -fx-text-fill: red;" text="Player1LifePoints" />
+            <TableColumn fx:id="player2HealthPoint" minWidth="110.0" prefWidth="75.0" style="-fx-background-color: black; -fx-text-fill: red;" text="Player2LifePoints" />
+            <TableColumn fx:id="gameState" minWidth="160.0" prefWidth="75.0" style="-fx-background-color: black; -fx-text-fill: green;" text="Game End " />
         </columns>
          <BorderPane.margin>
             <Insets bottom="20.0" top="120.0" />

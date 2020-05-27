@@ -19,3 +19,8 @@
 {
     -fx-background-image: url("../../images/guiimages/resultback.jpg");
 }
+#tableview
+{
+   -fx-background-color: black;
+    -fx-text-fill: white;
+}
