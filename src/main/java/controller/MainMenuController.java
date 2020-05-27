@@ -96,6 +96,7 @@ public class MainMenuController {
         stage.setScene(new Scene(root));
         stage.setTitle("Exit");
         stage.show();
+        Logger.info("User may would like to exit from the game.");
     }
 
     public void highScoreHandler(ActionEvent actionEvent) throws IOException {
@@ -105,5 +106,6 @@ public class MainMenuController {
         stage.setScene(new Scene(root));
         stage.setTitle("Results");
         stage.show();
+        Logger.info("Check the HighScore Table.");
     }
 }
