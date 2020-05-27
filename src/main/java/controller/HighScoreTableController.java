@@ -23,6 +23,9 @@ import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * This class responsible for the cell and column values of ResultTable.
+ */
 public class HighScoreTableController implements Initializable {
 
     @FXML

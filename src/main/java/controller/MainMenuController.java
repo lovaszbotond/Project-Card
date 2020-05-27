@@ -99,6 +99,12 @@ public class MainMenuController {
         Logger.info("User may would like to exit from the game.");
     }
 
+    /**
+     * Handle the HighScore button.
+     * @param actionEvent User select the HighScore button and check the resultTable.
+     * @throws IOException If the path is wrong or miss spelled the '.xml' file or not exist.
+     */
+    @FXML
     public void highScoreHandler(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/mainmenu/result.fxml"));
         Parent root = fxmlLoader.load();
