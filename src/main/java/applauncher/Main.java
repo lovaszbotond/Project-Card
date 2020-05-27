@@ -1,4 +1,4 @@
-package gamemanagment;
+package applauncher;
 
 import javafx.application.Application;
 
