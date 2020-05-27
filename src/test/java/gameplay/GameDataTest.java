@@ -63,10 +63,7 @@ class GameDataTest {
 
         assertEquals(1,GameData.getTurn());
         assertNotEquals(0,GameData.getTurn());
-
-        GameData.setTurn(2);
-
-        assertNotEquals(2,GameData.getTurn());
+        
 
     }
 }
