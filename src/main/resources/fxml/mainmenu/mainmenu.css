@@ -10,19 +10,35 @@
 {
     -fx-text-fill: whitesmoke;
 }
+#start
+{
+    -fx-border-insets: 10;
+    -fx-border-radius: 22;
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
 #start:hover
 {
     -fx-background-color: darkred;
+    -fx-background-radius: 22px;
     -fx-text-fill: white;
 }
 #start:pressed
 {
     -fx-background-color: red;
-    -fx-text-fill:black;
+    -fx-text-fill:white;
+}
+#rules
+{
+    -fx-border-insets: 10;
+    -fx-border-radius: 22;
+    -fx-background-color: black;
+    -fx-text-fill: white;
 }
 #rules:hover
 {
     -fx-background-color: darkred;
+    -fx-background-radius: 22px;
     -fx-text-fill: white;
 }
 #rules:pressed
@@ -30,12 +46,38 @@
     -fx-background-color: red;
     -fx-text-fill:black;
 }
+#exit
+{
+    -fx-border-insets: 10;
+    -fx-border-radius: 22;
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
 #exit:hover
 {
     -fx-background-color: darkred;
+    -fx-background-radius: 22px;
     -fx-text-fill: white;
 }
 #exit:pressed
+{
+    -fx-background-color: red;
+    -fx-text-fill:black;
+}
+#highscores
+{
+    -fx-border-insets: 10;
+    -fx-border-radius: 22;
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+#highscores:hover
+{
+    -fx-background-color: darkred;
+    -fx-background-radius: 22px;
+    -fx-text-fill: white;
+}
+#highscores:pressed
 {
     -fx-background-color: red;
     -fx-text-fill:black;

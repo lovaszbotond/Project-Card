@@ -2,6 +2,13 @@
 {
     -fx-background-image: url("../../images/guiimages/rulebox.jpg");
 }
+#accept
+{
+    -fx-border-insets: 10;
+    -fx-border-radius: 22;
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
 #accept:hover
 {
     -fx-background-color: darkblue;

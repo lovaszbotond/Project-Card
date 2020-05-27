@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane id="rulebox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="400.0" stylesheets="@rulebox.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RuleBoxController">
+<BorderPane id="rulebox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="400.0" stylesheets="@rulebox.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RuleBoxController">
    <bottom>
       <Button id="accept" fx:id="accept" mnemonicParsing="false" onAction="#acceptHandler" stylesheets="@rulebox.css" text="Accept" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -16,7 +14,7 @@
       </Button>
    </bottom>
    <center>
-      <TextArea id="ruletext" prefHeight="305.0" prefWidth="57.0" stylesheets="@rulebox.css" text="You got 5 card in your card deck.At the start of the turn you will get 1 card from the deck.At the same time you can have only 2 cards in your hand.You can have maximum 2 cards on the table, if one of your monsters dead, and you got only 1 left there , than you can play another card from the hand if you got. You can attack maximum 2 times in a round(depends on how many card you have got on the table. You start the game with 10 hp. You can end your turn by press the end button.&#10;&#10;The game will ends when someone loose all theri vitality. &#10;There is a little chance for draw.&#10;&#10;Have fun :) " wrapText="true" BorderPane.alignment="CENTER">
+      <TextArea id="ruletext" prefHeight="305.0" prefWidth="57.0" stylesheets="@rulebox.css" text="Dear Users!&#10;&#10;Nowadays, card games are gaining ground.&#10;This gave me the inspiration to make this card game that draws power from the world of mortal kombat.&#10;&#10;Let see the description: &#10;-both players get a carddeck at the beggining randomly&#10;-both players get a speacial skill.&#10;-players can use their special skill only once / game.&#10;-both players can give up the game any time, if they feel like it.&#10;-if one of the players would like to change the turn, the player has to push the end turn button. &#10;-player 1 starts the game &#10;-players can draw a card , only at the start of the turn.&#10;-if the player touched the card in hand , or on the board , the player can not draw anymore, only in the next round.&#10;-the cards in the deck have attack and defense points. &#10;-if the player would like to attack, the player has to choose the card from the board on his/her side, and choose the enemy card what he/she would like to attack.&#10;-players start with 50 hps&#10;&#10;The calculation of  lost hp : &#10;player 1 card : Attack point : 10 Defense point 8&#10;player 2 card : Attack point : 12 Defense point 5&#10;&#10;If player 1 attacks it means that player 2 will lose 5 hp points and player 1 looses 4 hp points because the player who is in defense mode also does damage to the attacker.&#10;&#10;If you got any question,  just send me a message on my email, what you can read on the console.&#10;&#10;Have fun !! ;)&#10;" wrapText="true" BorderPane.alignment="CENTER">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>

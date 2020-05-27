@@ -1,3 +1,12 @@
+#gameplaytableback
+{
+    -fx-background-image: url("../../images/guiimages/gameplaytable.jpg");
+}
+#endturn
+{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
 #endturn:hover
 {
     -fx-background-color: darkred;
@@ -9,15 +18,25 @@
     -fx-background-color: red;
     -fx-text-fill: white;
 }
+#p1gup
+{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
 #p1gup:hover
 {
-    -fx-background-color: darkred;
+    -fx-background-color: darkblue;
     -fx-background-radius: 22px;
     -fx-text-fill: white;
 }
 #p1gup:pressed
 {
-    -fx-background-color: red;
+    -fx-background-color: blue;
+    -fx-text-fill: white;
+}
+#p2gup
+{
+    -fx-background-color: black;
     -fx-text-fill: white;
 }
 #p2gup:hover
@@ -31,7 +50,33 @@
     -fx-background-color: red;
     -fx-text-fill: white;
 }
-#gameplaytableback
+#playertwodeck
 {
-    -fx-background-image: url("../../images/guiimages/gameplaytable.jpg");
+    -fx-background-image: url("../../images/guiimages/deckimage.jpg");
+}
+#playeronedeck
+{
+    -fx-background-image: url("../../images/guiimages/deckimage2.jpg");
+}
+#playeronespecialskill
+{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+#playeronespecialskill:hover
+{
+    -fx-background-color: darkblue;
+    -fx-background-radius: 22px;
+    -fx-text-fill: white;
+}
+#playertwospecialskill:hover
+{
+    -fx-background-color: darkred;
+    -fx-background-radius: 22px;
+    -fx-text-fill: white;
+}
+#playertwospecialskill
+{
+    -fx-background-color: black;
+    -fx-text-fill: white;
 }
