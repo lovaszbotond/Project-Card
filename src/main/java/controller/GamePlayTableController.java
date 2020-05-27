@@ -35,12 +35,6 @@ import javax.xml.bind.JAXBException;
 public class GamePlayTableController {
 
     @FXML
-    private Label p1timer;
-    private long start1;
-    @FXML
-    private Label p2timer;
-    private long start2;
-    @FXML
     private Label playeronenameslot, playertwonameslot;
     @FXML
     private Label p1Lifepoints, p2Lifepoints;
