@@ -30,7 +30,7 @@ class GameDataTest {
         gameCards.add(new GameCard("k9", "", 123,10123));
         gameCards.add(new GameCard("k10", "", 123,10123));
 
-        GameData.setPLayers("scorpion",null,cardDeck,cardDeck,null,null);
+        GameData.setPLayers("scorpion",null,cardDeck,cardDeck);
 
         assertNotEquals(20,GameData.getGamePlayer(0).getHealthpoint());
         assertEquals(50,GameData.getGamePlayer(0).getHealthpoint());
@@ -38,8 +38,6 @@ class GameDataTest {
         assertNotEquals(20,GameData.getGamePlayer(1).getHealthpoint());
         assertEquals(50,GameData.getGamePlayer(1).getHealthpoint());
 
-        assertNull(GameData.getGamePlayer(0).getSpecial());
-        assertNull(GameData.getGamePlayer(1).getSpecial());
 
         assertEquals(cardDeck,GameData.getGamePlayer(0).getCarddeck());
         assertEquals(cardDeck,GameData.getGamePlayer(1).getCarddeck());
@@ -63,7 +61,8 @@ class GameDataTest {
 
         assertEquals(1,GameData.getTurn());
         assertNotEquals(0,GameData.getTurn());
-        
+
+        assertNotEquals(2,GameData.getTurn());
 
     }
 }
