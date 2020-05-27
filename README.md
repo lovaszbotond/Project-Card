@@ -1,6 +1,6 @@
 #Project--Card 
 
-#This project is needed for my class of Software Engenieering.
+This project is needed for my class of Software Engenieering.
 
 ## Description
         This Game is a basic 1v1 card game. There are two players on the board.
