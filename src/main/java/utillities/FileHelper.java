@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class FileHelper {
     /**
      * @param player1 Name of player 1.
-     * @param player2 Name if player 2.
+     * @param player2 Name of player 2.
      * @throws IOException If there is something wrong during the file open procedure.
      * @throws JAXBException If something wrong with reading the file.
      */
